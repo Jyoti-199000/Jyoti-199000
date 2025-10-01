@@ -1,1191 +1,430 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CourseHub - Learn Python, Java & JavaScript</title>
-    <style>
-        /* Global Styles */
-        :root {
-            --primary: #4285f4;
-            --secondary: #34a853;
-            --accent: #fbbc05;
-            --dark: #202124;
-            --light: #f8f9fa;
-            --danger: #ea4335;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo-icon {
-            margin-right: 10px;
-            font-size: 2rem;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 2rem;
-        }
-        
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            opacity: 0.8;
-        }
-        
-        /* Hero Section */
-        .hero {
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://placehold.co/1600x900') no-repeat center center/cover;
-            color: white;
-            text-align: center;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background-color: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            margin: 0.5rem;
-        }
-        
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            border: 2px solid white;
-        }
-        
-        /* Courses Section */
-        .courses {
-            padding: 5rem 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
-            font-size: 2.5rem;
-            color: var(--primary);
-        }
-        
-        .courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-        
-        .course-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        
-        .course-img {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .course-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .course-card:hover .course-img img {
-            transform: scale(1.1);
-        }
-        
-        .course-info {
-            padding: 1.5rem;
-        }
-        
-        .course-info h3 {
-            margin-bottom: 0.5rem;
-        }
-        
-        .course-info .language {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background-color: var(--accent);
-            color: var(--dark);
-            border-radius: 50px;
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-        }
-        
-        .course-info p {
-            margin-bottom: 1.5rem;
-            color: #666;
-        }
-        
-        .course-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #777;
-            font-size: 0.9rem;
-        }
-        
-        /* Features Section */
-        .features {
-            padding: 5rem 0;
-            background-color: #f1f1f1;
-        }
-        
-        .features-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .feature-item {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-        
-        .feature-item h3 {
-            margin-bottom: 1rem;
-        }
-        
-        /* Language Tabs */
-        .language-tabs {
-            margin: 3rem 0;
-        }
-        
-        .tab-buttons {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .tab-btn {
-            padding: 0.8rem 2rem;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .tab-btn.active {
-            border-bottom: 3px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .syllabus-item {
-            background-color: white;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        .syllabus-item h4 {
-            margin-bottom: 0.5rem;
-        }
-        
-        .syllabus-item p {
-            color: #666;
-        }
-        
-        /* Problem-Solution Section */
-        .problem-solution {
-            padding: 5rem 0;
-        }
-        
-        .problem-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .problem-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .difficulty {
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .easy {
-            background-color: #e6f7ee;
-            color: #34a853;
-        }
-        
-        .medium {
-            background-color: #fff8e6;
-            color: #fbbc05;
-        }
-        
-        .hard {
-            background-color: #fce8e6;
-            color: #ea4335;
-        }
-        
-        .solution {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-        
-        .solution.show {
-            max-height: 1000px;
-        }
-        
-        .toggle-solution {
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-        
-        .toggle-solution:hover {
-            text-decoration: underline;
-        }
-        
-        /* Documentation Section */
-        .documentation {
-            padding: 5rem 0;
-            background-color: #f1f1f1;
-        }
-        
-        .doc-container {
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .doc-nav {
-            margin-bottom: 2rem;
-        }
-        
-        .doc-nav-list {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .doc-nav-item a {
-            color: var(--dark);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        .doc-nav-item a:hover, .doc-nav-item.active a {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .doc-content {
-            min-height: 500px;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 3rem 0 1rem;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .footer-col h3 {
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .footer-links a {
-            color: #ddd;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-            padding-left: 5px;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-        
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .social-links a:hover {
-            color: var(--accent);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #444;
-            color: #ddd;
-            font-size: 0.9rem;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-                font-size: 1.5rem;
-                background: none;
-                border: none;
-                color: white;
-                cursor: pointer;
-            }
-        }
-        
-        /* Code Highlighting */
-        pre {
-            background-color: #f5f5f5;
-            padding: 1rem;
-            border-radius: 5px;
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-        
-        code {
-            font-family: 'Courier New', Courier, monospace;
-            color: var(--dark);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edumart - Learn Python, Java, JavaScript, C++, Rust & SQL</title>
+<style>
+    /* Global Styles */
+    :root {
+        --primary: #4285f4;
+        --secondary: #34a853;
+        --accent: #fbbc05;
+        --dark: #202124;
+        --light: #f8f9fa;
+        --danger: #ea4335;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
+    nav { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; }
+    .logo-icon { margin-right: 10px; font-size: 2rem; }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links li { margin-left: 2rem; }
+    .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
+    .nav-links a:hover { opacity: 0.8; }
+    .mobile-menu-btn { display: none; }
+
+    /* Hero Section */
+    .hero { height: 80vh; display: flex; align-items: center; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('coding.jpg') no-repeat center center/cover; color: white; text-align: center; }
+    .hero-content { max-width: 800px; margin: 0 auto; }
+    .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+    .btn { display: inline-block; padding: 0.8rem 2rem; background-color: var(--primary); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; transition: all 0.3s ease; border: none; cursor: pointer; margin: 0.5rem; }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    .btn-secondary { background-color: transparent; border: 2px solid white; }
+
+    /* Courses Section */
+    .courses { padding: 5rem 0; }
+    .section-title { text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: var(--primary); }
+    .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
+    .course-card { background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+    .course-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+    .course-img { height: 200px; overflow: hidden; }
+    .course-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .course-card:hover .course-img img { transform: scale(1.1); }
+    .course-info { padding: 1.5rem; }
+    .course-info h3 { margin-bottom: 0.5rem; }
+    .course-info .language { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.8rem; margin-bottom: 1rem; }
+
+    /* Syllabus Tabs */
+    .language-tabs { margin: 3rem 0; }
+    .tab-buttons { display: flex; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .tab-btn { padding: 0.8rem 2rem; background: none; border: none; border-bottom: 3px solid transparent; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .tab-btn.active { border-bottom: 3px solid var(--primary); color: var(--primary); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .syllabus-item { background-color: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .syllabus-item h4 { margin-bottom: 0.5rem; }
+    .syllabus-item p { color: #666; }
+
+    /* Problems Section */
+    .problem-solution { padding: 5rem 0; }
+    .problem-card { background-color: white; border-radius: 10px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .problem-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .difficulty { padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; }
+    .easy { background-color: #e6f7ee; color: #34a853; }
+    .medium { background-color: #fff8e6; color: #fbbc05; }
+    .hard { background-color: #fce8e6; color: #ea4335; }
+    .solution { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .solution.show { max-height: 1000px; }
+    .toggle-solution { background: none; border: none; color: var(--primary); font-weight: 600; cursor: pointer; display: flex; align-items: center; }
+    .toggle-solution:hover { text-decoration: underline; }
+
+    /* Documentation Section */
+    .documentation { padding: 5rem 0; background-color: #f1f1f1; }
+    .doc-container { background-color: white; border-radius: 10px; padding: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .doc-nav-list { list-style: none; display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
+    .doc-nav-item a { color: var(--dark); text-decoration: none; padding: 0.5rem 1rem; border-radius: 5px; transition: all 0.3s ease; }
+    .doc-nav-item a:hover, .doc-nav-item.active a { background-color: var(--primary); color: white; }
+
+    /* Footer */
+    footer { background-color: var(--dark); color: white; padding: 3rem 0 1rem; }
+    .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+    .footer-col h3 { margin-bottom: 1.5rem; font-size: 1.2rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.8rem; }
+    .footer-links a { color: #ddd; text-decoration: none; transition: all 0.3s ease; }
+    .footer-links a:hover { color: white; padding-left: 5px; }
+    .social-links { display: flex; gap: 1.5rem; margin-top: 1rem; }
+    .social-links a { color: white; font-size: 1.5rem; transition: all 0.3s ease; }
+    .social-links a:hover { color: var(--accent); }
+    .copyright { text-align: center; padding-top: 2rem; border-top: 1px solid #444; color: #ddd; font-size: 0.9rem; }
+
+    /* Fade-in Animation */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    @media (max-width: 768px) {
+        .hero h1 { font-size: 2.5rem; }
+        .nav-links { display: none; }
+        .mobile-menu-btn { display: block; font-size: 1.5rem; background: none; border: none; color: white; cursor: pointer; }
+    }
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <span class="logo-icon">📚</span>
-                    <span>CourseHub</span>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#courses">Courses</a></li>
-                    <li><a href="#syllabus">Syllabus</a></li>
-                    <li><a href="#problems">Problems</a></li>
-                    <li><a href="#docs">Documentation</a></li>
-                    <li><a href="#" class="btn btn-secondary">Login</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Master Python, Java & JavaScript</h1>
-            <p>Comprehensive courses with hands-on exercises, real-world projects, and expert guidance to help you become a proficient developer</p>
-            <div>
-                <a href="#courses" class="btn">Explore Courses</a>
-                <a href="#problems" class="btn btn-secondary">Practice Problems</a>
-            </div>
-        </div>
-    </section>
+<!-- Header -->
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo"><span class="logo-icon">📚</span>Edumart</div>
+            <ul class="nav-links">
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#syllabus">Syllabus</a></li>
+                <li><a href="#problems">Problems</a></li>
+                <li><a href="#docs">Documentation</a></li>
+                <li><a href="#" class="btn btn-secondary">Login</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-    <!-- Courses Section -->
-    <section id="courses" class="courses">
-        <div class="container">
-            <h2 class="section-title">Our Courses</h2>
-            <div class="courses-grid">
-                <!-- Python Course -->
-                <div class="course-card">
-                    <div class="course-img">
-                        <img src="https://placehold.co/600x400" alt="Python programming course banner showing code examples and data visualization">
-                    </div>
-                    <div class="course-info">
-                        <span class="language" style="background-color: #3776ab; color: white;">Python</span>
-                        <h3>Python Mastery: From Basics to Advanced</h3>
-                        <p>A complete Python programming course covering fundamentals, web development, data science, and automation.</p>
-                        <div class="course-meta">
-                            <span>⭐ 4.8/5 (1.2k)</span>
-                            <span>🕒 42 hrs</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Java Course -->
-                <div class="course-card">
-                    <div class="course-img">
-                        <img src="https://placehold.co/600x400" alt="Java programming course banner showing object-oriented concepts">
-                    </div>
-                    <div class="course-info"><span class="language" style="background-color: #5382a1; color: white;">Java</span>
-                        <h3>Java Fundamentals & Beyond</h3>
-                        <p>Master Java programming, object-oriented concepts, and build robust applications.</p>
-                        <div class="course-meta">
-                            <span>⭐ 4.7/5 (890)</span>
-                            <span>🕒 36 hrs</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- JavaScript Course -->
-                <div class="course-card">
-                    <div class="course-img">
-                        <img src="https://placehold.co/600x400" alt="JavaScript course banner showing web development examples">
-                    </div>
-                    <div class="course-info">
-                        <span class="language" style="background-color: #f0db4f; color: var(--dark);">JavaScript</span>
-                        <h3>Modern JavaScript Development</h3>
-                        <p>Learn JavaScript, ES6+, frameworks, and build interactive web applications.</p>
-                        <div class="course-meta">
-                            <span>⭐ 4.9/5 (1.5k)</span>
-                            <span>🕒 48 hrs</span>
-                        </div>
-                    </div>
+<!-- Hero Section -->
+<section class="hero fade-in">
+    <div class="hero-content">
+        <h1>Master Python, Java, JavaScript, C++, Rust & SQL</h1>
+        <p>Comprehensive courses with hands-on exercises, real-world projects, and expert guidance to help you become a proficient developer</p>
+        <div>
+            <a href="#courses" class="btn">Explore Courses</a>
+            <a href="#problems" class="btn btn-secondary">Practice Problems</a>
+        </div>
+    </div>
+</section>
+
+<!-- Courses Section -->
+<section id="courses" class="courses fade-in">
+    <div class="container">
+        <h2 class="section-title">Our Courses</h2>
+        <div class="courses-grid">
+            <!-- Python -->
+            <div class="course-card">
+                <div class="course-img"><img src="python2.jpg" alt="Python Course"></div>
+                <div class="course-info">
+                    <span class="language" style="background-color:#3776ab;color:white;">Python</span>
+                    <h3>Python Mastery</h3>
+                    <p>From basics to advanced Python programming, data science, and automation.</p>
+                    <div class="course-meta"><span>⭐ 4.8/5 (1.2k)</span><span>🕒 42 hrs</span></div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <h2 class="section-title">Why Learn With Us</h2>
-            <div class="features-container">
-                <div class="feature-item">
-                    <div class="feature-icon">📖</div>
-                    <h3>Comprehensive Curriculum</h3>
-                    <p>Syllabus designed by industry experts covering all concepts progressively</p>
+            <!-- Java -->
+            <div class="course-card">
+                <div class="course-img"><img src="java.jpg" alt="Java Course"></div>
+                <div class="course-info">
+                    <span class="language" style="background-color:#5382a1;color:white;">Java</span>
+                    <h3>Java Fundamentals</h3>
+                    <p>Learn Java, OOP, and build robust applications.</p>
+                    <div class="course-meta"><span>⭐ 4.7/5 (890)</span><span>🕒 36 hrs</span></div>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-icon">💻</div>
-                    <h3>Hands-on Practice</h3>
-                    <p>Interactive coding exercises and projects to reinforce learning</p>
+            </div>
+            <!-- JavaScript -->
+            <div class="course-card">
+                <div class="course-img"><img src="javascript2.jpg" alt="JavaScript Course"></div>
+                <div class="course-info">
+                    <span class="language" style="background-color:#f0db4f;color:var(--dark);">JavaScript</span>
+                    <h3>Modern JS Development</h3>
+                    <p>Learn JS, ES6+, frameworks, and build interactive web apps.</p>
+                    <div class="course-meta"><span>⭐ 4.9/5 (1.5k)</span><span>🕒 48 hrs</span></div>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-icon">📝</div>
-                    <h3>Detailed Documentation</h3>
-                    <p>Well-organized reference materials for all programming concepts</p>
+            </div>
+            <!-- C++ -->
+            <div class="course-card">
+                <div class="course-img"><img src="c++ optimization.png" alt="C++ Course"></div>
+                <div class="course-info">
+                    <span class="language" style="background-color:#00599C;color:white;">C++</span>
+                    <h3>Complete C++ Programming</h3>
+                    <p>Learn C++ basics, OOP, STL, and system programming.</p>
+                    <div class="course-meta"><span>⭐ 4.6/5 (700)</span><span>🕒 40 hrs</span></div>
+                </div>
+            </div>
+            <!-- Rust -->
+            <div class="course-card">
+                <div class="course-img"><img src="rust.webp" alt="Rust Course"></div>
+                <div class="course-info">
+                    <span class="language" style="background-color:#DEA584;color:white;">Rust</span>
+                    <h3>Rust Systems Programming</h3>
+                    <p>Learn safe and fast systems programming with Rust.</p>
+                    <div class="course-meta"><span>⭐ 4.5/5 (450)</span><span>🕒 35 hrs</span></div>
+                </div>
+            </div>
+            <!-- SQL -->
+            <div class="course-card">
+                <div class="course-img"><img src="SQL-Server-1-1.jpg" alt="SQL Course"></div>
+                <div class="course-info">
+                    <span class="language" style="background-color:#e38c00;color:white;">SQL</span>
+                    <h3>SQL & Database Management</h3>
+                    <p>Master relational databases, queries, and advanced SQL techniques.</p>
+                    <div class="course-meta"><span>⭐ 4.7/5 (600)</span><span>🕒 30 hrs</span></div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Syllabus Section -->
-    <section id="syllabus" class="courses">
-        <div class="container">
-            <h2 class="section-title">Detailed Syllabus</h2>
-            
-            <div class="language-tabs">
-                <div class="tab-buttons">
-                    <button class="tab-btn active" onclick="openTab(event, 'python-tab')">Python</button>
-                    <button class="tab-btn" onclick="openTab(event, 'java-tab')">Java</button>
-                    <button class="tab-btn" onclick="openTab(event, 'js-tab')">JavaScript</button>
-                </div>
-                
-                <!-- Python Syllabus -->
-                <div id="python-tab" class="tab-content active">
-                    <div class="syllabus-item">
-                        <h4>Module 1: Python Basics</h4>
-                        <p>Variables, Data Types, Operators, Control Flow, Functions</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 2: Data Structures</h4>
-                        <p>Lists, Tuples, Dictionaries, Sets, Comprehensions</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 3: OOP in Python</h4>
-                        <p>Classes, Inheritance, Polymorphism, Magic Methods</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 4: File Handling & Modules</h4>
-                        <p>Working with files, Importing modules, Creating packages</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 5: Web Development with Django/Flask</h4>
-                        <p>Building web applications using Python frameworks</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 6: Data Science Essentials</h4>
-                        <p>NumPy, Pandas, Matplotlib, Basic Machine Learning</p>
-                    </div>
-                </div>
-                
-                <!-- Java Syllabus -->
-                <div id="java-tab" class="tab-content">
-                    <div class="syllabus-item">
-                        <h4>Module 1: Java Fundamentals</h4>
-                        <p>Syntax, Variables, Data Types, Operators, Control Flow</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 2: Object-Oriented Programming</h4>
-                        <p>Classes, Objects, Inheritance, Polymorphism, Interfaces</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 3: Collections Framework</h4>
-                        <p>ArrayList, LinkedList, HashMap, HashSet, Iterators</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 4: Exception Handling & I/O</h4>
-                        <p>Try-catch, Custom exceptions, File handling</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 5: Multithreading</h4>
-                        <p>Thread lifecycle, Synchronization, Executors</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 6: Java in Practice</h4>
-                        <p>Spring Framework Basics, Building REST APIs</p>
-                    </div>
-                </div>
-                
-                <!-- JavaScript Syllabus -->
-                <div id="js-tab" class="tab-content">
-                    <div class="syllabus-item">
-                        <h4>Module 1: JavaScript Basics</h4>
-                        <p>Variables, Data Types, Operators, Functions, Scope</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 2: DOM Manipulation</h4>
-                        <p>Selectors, Events, Traversal, Dynamic Content</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 3: ES6+ Features</h4>
-                        <p>Arrow functions, Classes, Modules, Async/Await</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 4: Frontend Frameworks</h4>
-                        <p>React/Vue fundamentals, Components, State Management</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 5: Server-side JS</h4>
-                        <p>Node.js, Express, REST APIs, Authentication</p>
-                    </div>
-                    <div class="syllabus-item">
-                        <h4>Module 6: Practical Applications</h4>
-                        <p>Building full-stack applications with modern tools</p>
-                    </div>
-                </div>
-            </div>
+<!-- Syllabus Section -->
+<section id="syllabus" class="language-tabs fade-in">
+    <div class="container">
+        <h2 class="section-title">Course Syllabus</h2>
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-target="python">Python</button>
+            <button class="tab-btn" data-target="java">Java</button>
+            <button class="tab-btn" data-target="javascript">JavaScript</button>
+            <button class="tab-btn" data-target="cpp">C++</button>
+            <button class="tab-btn" data-target="rust">Rust</button>
+            <button class="tab-btn" data-target="sql">SQL</button>
         </div>
-    </section>
+        <div class="tab-content active" id="python">
+            <div class="syllabus-item"><h4>Introduction</h4><p>Python basics, syntax, and environment setup.</p></div>
+            <div class="syllabus-item"><h4>Data Types & Control Flow</h4><p>Variables, loops, conditionals, lists, dictionaries.</p></div>
+            <div class="syllabus-item"><h4>Functions & Modules</h4><p>Creating functions, modules, and importing libraries.</p></div>
+        </div>
+        <div class="tab-content" id="java">
+            <div class="syllabus-item"><h4>Introduction</h4><p>Java syntax, variables, and environment setup.</p></div>
+            <div class="syllabus-item"><h4>OOP Concepts</h4><p>Classes, objects, inheritance, polymorphism, encapsulation.</p></div>
+            <div class="syllabus-item"><h4>Collections & Exceptions</h4><p>Lists, Maps, Sets, and exception handling.</p></div>
+        </div>
+        <div class="tab-content" id="javascript">
+            <div class="syllabus-item"><h4>Basics</h4><p>JavaScript syntax, variables, and types.</p></div>
+            <div class="syllabus-item"><h4>DOM & Events</h4><p>Document object model, event handling, and interactivity.</p></div>
+            <div class="syllabus-item"><h4>Advanced JS</h4><p>ES6+, asynchronous programming, fetch API.</p></div>
+        </div>
+        <div class="tab-content" id="cpp">
+            <div class="syllabus-item"><h4>Introduction</h4><p>C++ syntax, variables, and compilation process.</p></div>
+            <div class="syllabus-item"><h4>OOP</h4><p>Classes, inheritance, polymorphism, and encapsulation.</p></div>
+            <div class="syllabus-item"><h4>STL</h4><p>Vectors, sets, maps, iterators, and algorithms.</p></div>
+        </div>
+        <div class="tab-content" id="rust">
+            <div class="syllabus-item"><h4>Basics</h4><p>Rust syntax, ownership, borrowing, and variables.</p></div>
+            <div class="syllabus-item"><h4>Functions & Modules</h4><p>Functions, structs, enums, and modules.</p></div>
+            <div class="syllabus-item"><h4>Advanced Rust</h4><p>Memory safety, concurrency, and error handling.</p></div>
+        </div>
+        <div class="tab-content" id="sql">
+            <div class="syllabus-item"><h4>Introduction</h4><p>SQL basics, database design, tables, and queries.</p></div>
+            <div class="syllabus-item"><h4>Advanced Queries</h4><p>Joins, subqueries, indexing, and transactions.</p></div>
+            <div class="syllabus-item"><h4>Database Management</h4><p>Backup, restore, normalization, and optimization.</p></div>
+        </div>
+    </div>
+</section>
 
-    <!-- Problem-Solution Section -->
-    <section id="problems" class="problem-solution">
-        <div class="container">
-            <h2 class="section-title">Practice Problems</h2>
-            
-            <div class="problem-card">
-                <div class="problem-header">
-                    <h3>Problem 1: Palindrome Checker (Python)</h3>
-                    <span class="difficulty easy">Easy</span>
-                </div>
-                <p>Write a Python function that checks if a given string is a palindrome (reads the same backward as forward). The function should return True if it's a palindrome and False otherwise.</p>
-                
-                <button class="toggle-solution" onclick="toggleSolution(1)">
-                    Show Solution <span>▼</span>
-                </button>
-                
-                <div class="solution" id="solution1">
-                    <pre><code>def is_palindrome(s):
-    """Check if a string is a palindrome."""
-    # Remove non-alphanumeric characters and convert to lowercase
-    cleaned = ''.join(c for c in s if c.isalnum()).lower()
-    return cleaned == cleaned[::-1]
-
-# Examples:
-print(is_palindrome("A man, a plan, a canal: Panama"))  # True
-print(is_palindrome("racecar"))  # True
-print(is_palindrome("hello"))  # False</code></pre>
-                    <h4>Explanation:</h4>
-                    <p>This solution first cleans the input string by removing all non-alphanumeric characters and converting it to lowercase. Then it checks if the cleaned string is equal to its reverse (using Python's slice notation [::-1] to reverse the string).</p>
-                </div>
+<!-- Problems Section -->
+<section id="problems" class="problem-solution fade-in">
+    <div class="container">
+        <h2 class="section-title">Practice Problems</h2>
+        <!-- Python Problem -->
+        <div class="problem-card">
+            <div class="problem-header">
+                <h3>Python: Reverse a List</h3>
+                <span class="difficulty easy">Easy</span>
             </div>
-            
-            <div class="problem-card">
-                <div class="problem-header">
-                    <h3>Problem 2: Two Sum (Java)</h3>
-                    <span class="difficulty easy">Easy</span>
-                </div>
-                <p>Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
-                
-                <button class="toggle-solution" onclick="toggleSolution(2)">
-                    Show Solution <span>▼</span>
-                </button>
-                
-                <div class="solution" id="solution2">
-                    <pre><code>import java.util.HashMap;
-import java.util.Map;
-
-public class TwoSum {
-    public int[] twoSum(int[] nums, int target) {
-        Map&lt;Integer, Integer&gt; numMap = new HashMap&lt;&gt;();
-        for (int i = 0; i < nums.length; i++) {
-            int complement = target - nums[i];
-            if (numMap.containsKey(complement)) {
-                return new int[] { numMap.get(complement), i };
-            }
-            numMap.put(nums[i], i);
-        }
-        throw new IllegalArgumentException("No two sum solution");
+            <p>Write a Python function that reverses a list without using the built-in reverse() method.</p>
+            <button class="toggle-solution" onclick="toggleSolution(1)">Show Solution</button>
+            <div class="solution" id="solution1"><pre><code>def reverse_list(lst):
+    return lst[::-1]</code></pre></div>
+        </div>
+        <!-- Java Problem -->
+        <div class="problem-card">
+            <div class="problem-header">
+                <h3>Java: Two Sum</h3>
+                <span class="difficulty medium">Medium</span>
+            </div>
+            <p>Given an array of integers, return indices of the two numbers such that they add up to a target.</p>
+            <button class="toggle-solution" onclick="toggleSolution(2)">Show Solution</button>
+            <div class="solution" id="solution2"><pre><code>public int[] twoSum(int[] nums, int target) {
+    Map<Integer,Integer> map = new HashMap<>();
+    for(int i=0;i<nums.length;i++){
+        int comp = target - nums[i];
+        if(map.containsKey(comp)) return new int[]{map.get(comp), i};
+        map.put(nums[i], i);
     }
-}</code></pre>
-                    <h4>Explanation:</h4>
-                    <p>This Java solution uses a HashMap to store the complement of each number (target - current number) as we iterate through the array. When we find a number whose complement is already in the map, we return the indices. This approach has O(n) time complexity.</p>
-                </div>
+    return new int[]{};
+}</code></pre></div>
+        </div>
+        <!-- JavaScript Problem -->
+        <div class="problem-card">
+            <div class="problem-header">
+                <h3>JavaScript: Factorial</h3>
+                <span class="difficulty easy">Easy</span>
             </div>
-            
-            <div class="problem-card">
-                <div class="problem-header">
-                    <h3>Problem 3: Interactive To-Do List (JavaScript)</h3>
-                    <span class="difficulty medium">Medium</span>
-                </div>
-                <p>Create a simple interactive to-do list application with vanilla JavaScript that allows users to:
-                <ul>
-                    <li>Add new tasks with a text input</li>
-                    <li>Mark tasks as complete</li>
-                    <li>Delete tasks</li>
-                    <li>Persist tasks between page reloads using localStorage</li>
-                </ul>
-                </p>
-                
-                <button class="toggle-solution" onclick="toggleSolution(3)">
-                    Show Solution <span>▼</span>
-                </button>
-                
-                <div class="solution" id="solution3">
-                    <pre><code>// HTML Structure
-&lt;div id="todo-app"&gt;
-    &lt;h2&gt;To-Do List&lt;/h2&gt;
-    &lt;input type="text" id="task-input" placeholder="Add a new task..." /&gt;
-    &lt;button id="add-btn"&gt;Add Task&lt;/button&gt;
-    &lt;ul id="task-list"&gt;&lt;/ul&gt;
-&lt;/div&gt;
+            <p>Write a JS function to calculate factorial of a number recursively.</p>
+            <button class="toggle-solution" onclick="toggleSolution(3)">Show Solution</button>
+            <div class="solution" id="solution3"><pre><code>function factorial(n){
+    if(n===0 || n===1) return 1;
+    return n * factorial(n-1);
+}</code></pre></div>
+        </div>
+        <!-- C++ Problem -->
+        <div class="problem-card">
+            <div class="problem-header">
+                <h3>C++: Palindrome Check</h3>
+                <span class="difficulty medium">Medium</span>
+            </div>
+            <p>Check if a given string is a palindrome in C++ without using extra space.</p>
+            <button class="toggle-solution" onclick="toggleSolution(4)">Show Solution</button>
+            <div class="solution" id="solution4"><pre><code>#include &lt;string&gt;
+bool isPalindrome(const std::string &s){
+    int l=0, r=s.size()-1;
+    while(l&lt;r){
+        if(s[l++] != s[r--]) return false;
+    }
+    return true;
+}</code></pre></div>
+        </div>
+        <!-- Rust Problem -->
+        <div class="problem-card">
+            <div class="problem-header">
+                <h3>Rust: Fibonacci</h3>
+                <span class="difficulty medium">Medium</span>
+            </div>
+            <p>Write a function in Rust to return nth Fibonacci number using recursion.</p>
+            <button class="toggle-solution" onclick="toggleSolution(5)">Show Solution</button>
+            <div class="solution" id="solution5"><pre><code>fn fib(n:u32) -&gt; u32 {
+    if n==0 || n==1 { return n; }
+    fib(n-1) + fib(n-2)
+}</code></pre></div>
+        </div>
+        <!-- SQL Problem -->
+        <div class="problem-card">
+            <div class="problem-header">
+                <h3>SQL: Top 3 Salaries</h3>
+                <span class="difficulty hard">Hard</span>
+            </div>
+            <p>Write a query to find top 3 highest salaries from Employee table.</p>
+            <button class="toggle-solution" onclick="toggleSolution(6)">Show Solution</button>
+            <div class="solution" id="solution6"><pre><code>SELECT * FROM Employee
+ORDER BY Salary DESC
+LIMIT 3;</code></pre></div>
+        </div>
+    </div>
+</section>
 
-// JavaScript Solution
-document.addEventListener('DOMContentLoaded', () => {
-    const taskInput = document.getElementById('task-input');
-    const addBtn = document.getElementById('add-btn');
-    const taskList = document.getElementById('task-list');
-    
-    // Load tasks from localStorage
-    loadTasks();
-    
-    addBtn.addEventListener('click', addTask);
-    taskInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') addTask();
+<!-- Documentation Section -->
+<section id="docs" class="documentation fade-in">
+    <div class="container">
+        <h2 class="section-title">Documentation</h2>
+        <div class="doc-container">
+            <ul class="doc-nav-list">
+                <li class="doc-nav-item"><a href="https://docs.python.org/3/" target="_blank">Python Docs</a></li>
+                <li class="doc-nav-item"><a href="https://docs.oracle.com/en/java/" target="_blank">Java Docs</a></li>
+                <li class="doc-nav-item"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">JS Docs</a></li>
+                <li class="doc-nav-item"><a href="https://en.cppreference.com/w/" target="_blank">C++ Docs</a></li>
+                <li class="doc-nav-item"><a href="https://doc.rust-lang.org/" target="_blank">Rust Docs</a></li>
+                <li class="doc-nav-item"><a href="https://www.postgresql.org/docs/" target="_blank">SQL Docs</a></li>
+            </ul>
+            <div class="doc-content">
+                <p>Select a documentation link above to explore tutorials, references, and examples.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container footer-content">
+        <div class="footer-col">
+            <h3>About Edumart</h3>
+            <p>Learn coding, practice problems, and get ready for real-world projects with Edumart courses.</p>
+        </div>
+        <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#syllabus">Syllabus</a></li>
+                <li><a href="#problems">Problems</a></li>
+                <li><a href="#docs">Documentation</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="#">📘</a>
+                <a href="#">🐦</a>
+                <a href="#">📸</a>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">© 2025 Edumart. All rights reserved.</div>
+</footer>
+
+<!-- JS -->
+<script>
+const tabs = document.querySelectorAll('.tab-btn');
+const tabContents = document.querySelectorAll('.tab-content');
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const target = tab.dataset.target;
+        tabContents.forEach(content => {
+            content.classList.remove('active');
+            if(content.id === target) content.classList.add('active');
+        });
     });
-    
-    function addTask() {
-        const taskText = taskInput.value.trim();
-        if (taskText) {
-            createTaskElement(taskText);
-            saveTask(taskText);
-            taskInput.value = '';
-        }
-    }
-    
-    function createTaskElement(taskText, isCompleted = false) {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            &lt;input type="checkbox" ${isCompleted ? 'checked' : ''} /&gt;
-            &lt;span class="${isCompleted ? 'completed' : ''}"&gt;${taskText}&lt;/span&gt;
-            &lt;button class="delete-btn"&gt;×&lt;/button&gt;
-        `;
-        
-        const checkbox = li.querySelector('input[type="checkbox"]');
-        const deleteBtn = li.querySelector('.delete-btn');
-        
-        checkbox.addEventListener('change', () => {
-            li.querySelector('span').classList.toggle('completed');
-            updateStorage();
-        });
-        
-        deleteBtn.addEventListener('click', () => {
-            li.remove();
-            updateStorage();
-        });
-        
-        taskList.appendChild(li);
-    }
-    
-    function saveTask(taskText) {
-        const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-        tasks.push({ text: taskText, completed: false });
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-    
-    function loadTasks() {
-        const tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
-        tasks.forEach(task => {
-            createTaskElement(task.text, task.completed);
-        });
-    }
-    
-    function updateStorage() {
-        const tasks = [];
-        document.querySelectorAll('#task-list li').forEach(li => {
-            tasks.push({
-                text: li.querySelector('span').textContent,
-                completed: li.querySelector('input').checked
-            });
-        });
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-});</code></pre>
-                    <h4>Explanation:</h4>
-                    <p>This JavaScript solution creates a complete to-do list application with persistence. It demonstrates DOM manipulation, event handling, and localStorage usage. The solution includes adding tasks, marking them as complete, deleting tasks, and saving the state between page reloads.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Documentation Section -->
-    <section id="docs" class="documentation">
-        <div class="container">
-            <h2 class="section-title">Comprehensive Documentation</h2>
-            
-            <div class="doc-container">
-                <div class="doc-nav">
-                    <ul class="doc-nav-list">
-                        <li class="doc-nav-item active"><a href="#python-docs">Python Docs</a></li>
-                        <li class="doc-nav-item"><a href="#java-docs">Java Docs</a></li>
-                        <li class="doc-nav-item"><a href="#js-docs">JavaScript Docs</a></li>
-                    </ul>
-                </div>
-                
-                <div class="doc-content">
-                    <div id="python-docs">
-                        <h3>Python Documentation</h3>
-                        <div class="syllabus-item">
-                            <h4>Variables and Data Types</h4>
-                            <p>Python has several built-in data types:
-                                <ul>
-                                    <li><code>int</code> - integer numbers</li>
-                                    <li><code>float</code> - floating point numbers</li>
-                                    <li><code>str</code> - strings of characters</li>
-                                    <li><code>bool</code> - True or False values</li>
-                                    <li><code>list</code> - ordered, mutable collections</li>
-                                    <li><code>tuple</code> - ordered, immutable collections</li>
-                                    <li><code>dict</code> - key-value pairs</li>
-                                    <li><code>set</code> - unordered collections of unique elements</li>
-                                </ul>
-                            </p>
-                            <pre><code># Variable assignment examples
-age = 25  # int
-price = 19.99  # float
-name = "Alice"  # str
-is_active = True  # bool
-colors = ["red", "green", "blue"]  # list
-coordinates = (10.0, 20.0)  # tuple
-user = {"name": "John", "age": 30}  # dict
-unique_numbers = {1, 2, 3}  # set</code></pre>
-                        </div>
-                        
-                        <div class="syllabus-item">
-                            <h4>Functions and Modules</h4>
-                            <p>Functions are defined using the <code>def</code> keyword. Python supports modular programming through modules and packages.</p>
-                            <pre><code># Function definition
-def greet(name):
-    """This function greets the person passed in as parameter"""
-    return f"Hello, {name}!"
-
- # Using a function
-print(greet("World"))  # Output: Hello, World!
-
-# Importing modules
-import math
-print(math.sqrt(16))  # 4.0
-
-from datetime import date
-today = date.today()
-print(today)  # Current date</code></pre>
-                        </div>
-                        
-                        <div class="syllabus-item">
-                            <h4>Python Standard Library</h4>
-                            <p>Python comes with a comprehensive standard library that includes modules for file I/O, regular expressions, data compression, testing, and more. Some commonly used modules are:
-                                <ul>
-                                    <li><code>os</code> - operating system interfaces</li>
-                                    <li><code>sys</code> - system-specific parameters and functions</li>
-                                    <li><code>json</code> - JSON encoder and decoder</li>
-                                    <li><code>re</code> - regular expressions</li>
-                                    <li><code>math</code> - mathematical functions</li>
-                                    <li><code>datetime</code> - date and time handling</li>
-                                </ul>
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div id="java-docs" style="display: none;">
-                        <h3>Java Documentation</h3>
-                        <div class="syllabus-item">
-                            <h4>Java Basics</h4>
-                            <p>Core Java concepts include:
-                                <ul>
-                                    <li>Variables and primitive data types</li>
-                                    <li>Operators and expressions</li>
-                                    <li>Control flow statements (if-else, loops)</li>
-                                    <li>Arrays and strings</li>
-                                </ul>
-                            </p>
-                            <pre><code>// Simple Java program example
-public class Main {
-    public static void main(String[] args) {
-        // Variables and data types
-        int number = 10;
-        double decimal = 3.14;
-        String text = "Hello Java";
-        boolean isTrue = true;
-        
-        // Control flow
-        if (number > 5) {
-            System.out.println(text);
-        }
-        
-        // Loop
-        for (int i = 0; i < 5; i++) {
-            System.out.println("Count: " + i);
-        }
-    }
-}</code></pre>
-                        </div>
-                        
-                        <div class="syllabus-item">
-                            <h4>Object-Oriented Programming in Java</h4>
-                            <p>Java is fundamentally object-oriented. Key OOP concepts include:
-                                <ul>
-                                    <li>Classes and objects</li>
-                                    <li>Inheritance</li>
-                                    <li>Polymorphism</li>
-                                    <li>Abstraction</li>
-                                    <li>Encapsulation</li>
-                                </ul>
-                            </p>
-                            <pre><code>// OOP Example in Java
-class Animal {
-    String name;
-    
-    public Animal(String name) {
-        this.name = name;
-    }
-    
-    public void sound() {
-        System.out.println("Makes a sound");
-    }
-}
-
-class Dog extends Animal {
-    public Dog(String name) {
-        super(name);
-    }
-    
-    @Override
-    public void sound() {
-        System.out.println("Bark");
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        Animal myDog = new Dog("Buddy");
-        myDog.sound();  // Outputs: Bark
-    }
-}</code></pre>
-                        </div>
-                    </div>
-                    
-                    <div id="js-docs" style="display: none;">
-                        <h3>JavaScript Documentation</h3>
-                        <div class="syllabus-item">
-                            <h4>JavaScript Fundamentals</h4>
-                            <p>Core JavaScript concepts include:
-                                <ul>
-                                    <li>Variables (<code>let</code>, <code>const</code>, <code>var</code>)</li>
-                                    <li>Data types</li>
-                                    <li>Operators</li>
-                                    <li>Functions</li>
-                                    <li>Control structures</li>
-                                </ul>
-                            </p>
-                            <pre><code>// JavaScript basics
-let message = "Hello World";  // String
-const PI = 3.14;              // Constant
-let count = 0;                // Number
-let isActive = true;          // Boolean
-
-// Function
-function greet(name) {
-    return Hello, ${name}!;
-}
-
-console.log(greet("Alice"));  // Hello, Alice!
-
-// Arrow function (ES6+)
-const add = (a, b) => a + b;
-console.log(add(2, 3));  // 5</code></pre>
-                        </div>
-                        
-                        <div class="syllabus-item">
-                            <h4>DOM Manipulation</h4>
-                            <p>JavaScript can interact with HTML documents through the Document Object Model (DOM):
-                                <ul>
-                                    <li>Finding elements (<code>getElementById</code>, <code>querySelector</code>)</li>
-                                    <li>Changing element content and attributes</li>
-                                    <li>Adding event listeners</li>
-                                    <li>Creating and removing elements</li>
-                                </ul>
-                            </p>
-                            <pre><code>// DOM manipulation example
-const btn = document.getElementById('myButton');
-const output = document.querySelector('.output');
-
-btn.addEventListener('click', () => {
-    const newElement = document.createElement('p');
-    newElement.textContent = 'Button was clicked!';
-    output.appendChild(newElement);
 });
 
-// Change styles dynamically
-btn.style.backgroundColor = 'blue';</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+function toggleSolution(id){
+    const sol = document.getElementById('solution'+id);
+    sol.classList.toggle('show');
+}
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <h3>CourseHub</h3>
-                    <p>Your comprehensive learning platform for mastering programming languages and computer science concepts.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook">📘</a>
-                        <a href="#" aria-label="Twitter">🐦</a>
-                        <a href="#" aria-label="LinkedIn">👔</a>
-                        <a href="#" aria-label="GitHub">🔗</a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h3>Courses</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Python Programming</a></li>
-                        <li><a href="#">Java Development</a></li>
-                        <li><a href="#">JavaScript Mastery</a></li>
-                        <li><a href="#">Data Structures & Algorithms</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Code Challenges</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Cheat Sheets</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h3>Company</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 CourseHub. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+const faders = document.querySelectorAll('.fade-in');
+const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
+const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, appearOptions);
+faders.forEach(fader => appearOnScroll.observe(fader));
+</script>
 
-    <script>
-        // Function to handle tab switching
-        function openTab(evt, tabName) {
-            // Hide all tab contents
-            const tabContents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove("active");
-            }
-            
-            // Remove active class from all tab buttons
-            const tabButtons = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove("active");
-            }
-            
-            // Show current tab and mark button as active
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-        
-        // Function to toggle problem solutions
-        function toggleSolution(num) {
-            const solution = document.getElementById(solution$num);
-            const toggleBtn = solution.previousElementSibling;
-            
-            solution.classList.toggle("show");
-            const arrow = toggleBtn.querySelector('span');
-            
-            if (solution.classList.contains("show")) {
-                arrow.textContent = '▲';
-                toggleBtn.innerHTML = toggleBtn.innerHTML.replace('Show', 'Hide');
-            } else {
-                arrow.textContent = '▼';
-                toggleBtn.innerHTML = toggleBtn.innerHTML.replace('Hide', 'Show');
-            }
-        }
-        
-        // Initialize first tab as active
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.tab-btn').click();
-        });
-    </script>
 </body>
 </html>
