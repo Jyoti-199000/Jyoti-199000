@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Java Mastery – Complete Course</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --primary: #5382a1;
+      --light: #f5f7fa;
+      --dark: #1e1e2d;
+      --radius: 12px;
+      --transition: .3s ease;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background: var(--light); color: var(--dark); line-height: 1.6; }
+    a { color: var(--primary); }
+    img { max-width: 100%; display: block; }
+    .container { width: 90%; max-width: 1100px; margin: auto; }
+    header { background: var(--primary); color: #fff; padding: 2.5rem 0; }
+    header h1 { font-size: 2.2rem; }
+    header p { opacity: .9; margin-top: .5rem; }
+    .badge { display: inline-block; background: #ffc107; color: #000; padding: .25rem .75rem; border-radius: 20px; font-size: .8rem; font-weight: 600; margin-bottom: 1rem; }
+    .grid-2 { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+    section { padding: 3rem 0; }
+    h2 { margin-bottom: 1rem; font-size: 1.75rem; }
+    ul.check { list-style: none; padding-left: 0; }
+    ul.check li { padding-left: 1.5rem; position: relative; margin: .5rem 0; }
+    ul.check li::before { content: "✔"; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+    .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius); box-shadow: 0 8px 20px rgba(0,0,0,.15); background: #000; }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .btn { display: inline-block; background: var(--primary); color: #fff; padding: .9rem 1.8rem; border-radius: var(--radius); text-decoration: none; font-weight: 600; transition: var(--transition); border: none; cursor: pointer; margin: .5rem .5rem .5rem 0; }
+    .btn:hover { background: #406a84; }
+    .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: #fff; }
+    .card { background: #fff; padding: 1.8rem; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+    .tag { display: inline-block; background: #e0eaff; color: var(--primary); padding: .25rem .6rem; border-radius: 4px; font-size: .75rem; margin: .2rem; }
+    footer { text-align: center; padding: 2rem 0; font-size: .9rem; color: #666; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <span class="badge">Best-seller</span>
+    <h1>Java Mastery</h1>
+    <p>From first line of code to Spring-Boot microservices & Android apps.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container grid-2">
+    <div>
+      <h2>Why Java?</h2>
+      <p>Released by Sun Microsystems in 1995, Java’s “Write Once, Run Anywhere” philosophy made it the backbone of enterprise software. Today it’s:</p>
+      <ul class="check">
+        <li>Top-3 language on TIOBE & GitHub push requests</li>
+        <li>Average salary <strong>$104k/year</strong> US (Glassdoor)</li>
+        <li>Used by <strong>Google, Netflix, LinkedIn, Uber, Airbnb, Minecraft, Hadoop, Android …</strong></li>
+        <li>Platform-agnostic: servers, desktops, mobiles, IoT, cards</li>
+        <li>Strong static typing → maintainable million-line codebases</li>
+      </ul>
+      <br>
+      <a href="#curriculum" class="btn">Explore curriculum</a>
+      <a href="#video" class="btn btn-outline">Watch full tutorial</a>
+    </div>
+    <div class="card">
+      <h3>Positions you can target</h3>
+      <p><span class="tag">Java Backend Engineer</span><span class="tag">Spring Developer</span><span class="tag">Android Developer</span>
+      <span class="tag">DevOps Engineer</span><span class="tag">QA Automation (Selenium)</span><span class="tag">Big-Data Engineer</span>
+      <span class="tag">Microservices Architect</span><span class="tag">Enterprise Architect</span><span class="tag">FinTech Developer</span>
+      <span class="tag">Kafka Engineer</span><span class="tag">Cloud Native Engineer</span></p>
+      <hr style="margin: 1.2rem 0;border:none;border-top:1px solid #ddd">
+      <h3>Built with Java</h3>
+      <ul class="check">
+        <li>Android Operating System</li>
+        <li>LinkedIn – 500 M+ members backend</li>
+        <li>Netflix – 200 M+ subscribers services</li>
+        <li>Uber – real-time matching & pricing</li>
+        <li>Minecraft – best-selling video game</li>
+        <li>Apache Hadoop – big-data framework</li>
+        <li>Elasticsearch – search & analytics engine</li>
+        <li>Spring Boot – powers 60 % of Java microservices</li>
+        <li>NASA Maestro – Mars rover control</li>
+        <li>European Central Bank trading platform</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="video">
+  <div class="container">
+    <h2>Free 12-Hour Full Tutorial</h2>
+    <p>Zero to advanced — JDK install, OOP, collections, multithreading, Spring Boot & more. Play below, no login required.</p>
+    <div class="video-wrapper">
+      <!-- YouTube playlist: Java Tutorial – ProgrammingKnowledge -->
+ <iframe width="100%" height="500" 
+        src="https://www.youtube.com/embed/videoseries?list=PL9ooVrP1hQOEe9EN119lMdwcBxcrBI1D3" 
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+</iframe>
+
+    </div>
+  </div>
+</section>
+
+<section id="curriculum">
+  <div class="container">
+    <h2>Course Curriculum</h2>
+    <p>Hands-on labs after every module + capstone project deployed on AWS Elastic Beanstalk.</p>
+    <div class="grid-2">
+      <ul class="check">
+        <li>History & JDK installation (Windows, macOS, Linux)</li>
+        <li>Variables, primitives, type-casting</li>
+        <li>Operators, expressions, scanner input</li>
+        <li>Control flow: if, switch, loops</li>
+        <li>Arrays, var-args, multi-dimensional</li>
+        <li>Object-Oriented Programming: classes, objects</li>
+        <li>Inheritance, polymorphism, abstraction</li>
+        <li>Interfaces, enums, records (Java 17+)</li>
+        <li>Exception handling & custom exceptions</li>
+        <li>Java Collections Framework: List, Set, Map, Queue</li>
+      </ul>
+      <ul class="check">
+        <li>Generics & wildcards</li>
+        <li>Multithreading, executors, concurrent collections</li>
+        <li>Java 8+ features: lambdas, Stream API, Optional</li>
+        <li>File I/O, NIO.2, serialization</li>
+        <li>Unit testing with JUnit 5 & Mockito</li>
+        <li>Maven & build lifecycle</li>
+        <li>Introduction to Spring & Spring Boot</li>
+        <li>Creating RESTful APIs & microservices</li>
+        <li>Connecting MySQL & JPA/Hibernate</li>
+        <li>Dockerize & deploy to AWS</li>
+      </ul>
+    </div>
+    <br>
+    <a href="#" class="btn" onclick="alert('Enrollment opens here — connect your payment gateway or LMS');return false">Enroll now – $59</a>
+    <a href="#" class="btn btn-outline" onclick="alert('Syllabus PDF download');return false">Download syllabus</a>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="container" style="text-align:center">
+    <h2>Still thinking?</h2>
+    <p>Java powers 3 billion devices and 90 % of Fortune 500 servers.<br>
+       Master it once, build anywhere — from Android games to global trading systems.</p>
+    <br>
+    <a href="#" class="btn">Start learning today</a>
+  </div>
+</section>
+
+<footer>
+  © 2024 YourAcademy. All rights reserved.
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+    anchor.addEventListener('click',function(e){
+      e.preventDefault();
+      const tgt=document.querySelector(this.getAttribute('href'));
+      if(tgt) tgt.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+</script>
+</body>
+</html>

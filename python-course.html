@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Python Mastery – Complete Course</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --primary: #3776ab;
+      --light: #f5f7fa;
+      --dark: #1e1e2d;
+      --radius: 12px;
+      --transition: .3s ease;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    a {
+      color: var(--primary);
+    }
+    img {
+      max-width: 100%;
+      display: block;
+    }
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 2.5rem 0;
+    }
+    header h1 {
+      font-size: 2.2rem;
+    }
+    header p {
+      opacity: .9;
+      margin-top: .5rem;
+    }
+    .badge {
+      display: inline-block;
+      background: #ffc107;
+      color: #000;
+      padding: .25rem .75rem;
+      border-radius: 20px;
+      font-size: .8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .grid-2 {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    section {
+      padding: 3rem 0;
+    }
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 1.75rem;
+    }
+    ul.check {
+      list-style: none;
+      padding-left: 0;
+    }
+    ul.check li {
+      padding-left: 1.5rem;
+      position: relative;
+      margin: .5rem 0;
+    }
+    ul.check li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+      background: #000;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      padding: .9rem 1.8rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      margin: .5rem .5rem .5rem 0;
+    }
+    .btn:hover {
+      background: #296294;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    .btn-outline:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+    .card {
+      background: #fff;
+      padding: 1.8rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, .06);
+    }
+    .tag {
+      display: inline-block;
+      background: #e0eaff;
+      color: var(--primary);
+      padding: .25rem .6rem;
+      border-radius: 4px;
+      font-size: .75rem;
+      margin: .2rem;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      font-size: .9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <span class="badge">Best-seller</span>
+    <h1>Python Mastery</h1>
+    <p>From zero to pro — automate, analyze, build & get hired.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container grid-2">
+    <div>
+      <h2>Why Python?</h2>
+      <p>Created by Guido van Rossum and first released in 1991, Python emphasizes readability and developer happiness. Today it’s:</p>
+      <ul class="check">
+        <li>#1 language on the TIOBE index (2024)</li>
+        <li>Average salary <strong>$112k/year</strong> in the US (Glassdoor)</li>
+        <li>Used by <strong>Google, Netflix, Instagram, Spotify, NASA, Dropbox, Uber, Pinterest, Reddit …</strong></li>
+        <li>General-purpose: web, AI, data, automation, DevOps, games, IoT, cyber-security</li>
+        <li>English-like syntax → fastest language to learn</li>
+      </ul>
+      <br>
+      <a href="#curriculum" class="btn">Explore curriculum</a>
+      <a href="#video" class="btn btn-outline">Watch full tutorial</a>
+    </div>
+    <div class="card">
+      <h3>Positions you can target</h3>
+      <p><span class="tag">Python Developer</span><span class="tag">Data Analyst</span><span class="tag">Data Scientist</span>
+      <span class="tag">ML Engineer</span><span class="tag">Backend Engineer</span><span class="tag">Automation Tester</span>
+      <span class="tag">DevOps / SRE</span><span class="tag">Quant Researcher</span><span class="tag">Bio-informatician</span>
+      <span class="tag">Cyber-Security Analyst</span><span class="tag">Game Developer</span><span class="tag">IoT Engineer</span></p>
+      <hr style="margin: 1.2rem 0;border:none;border-top:1px solid #ddd">
+      <h3>Built with Python</h3>
+      <ul class="check">
+        <li>Instagram backend (Django)</li>
+        <li>Netflix recommendation engine</li>
+        <li>Spotify data pipelines & backend services</li>
+        <li>YouTube video delivery system</li>
+        <li>Dropbox desktop client</li>
+        <li>NASA shuttle mission control</li>
+        <li>JP Morgan Athena trading platform</li>
+        <li>Reddit comment ranking</li>
+        <li>Disney animation tools</li>
+        <li>Industrial light & Magic VFX</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="video">
+  <div class="container">
+    <h2>Free 12-Hour Full Tutorial</h2>
+    <p>Curious how we teach? Hit play — no login, no ads, completely free. When you’re ready, enroll below for exercises, quizzes, certification and career help.</p>
+    <div class="video-wrapper">
+      <!-- YouTube playlist: Python for Beginners – Full Course [ProgrammingKnowledge] -->
+      <iframe width="100%" height="500" 
+        src="https://www.youtube.com/embed/videoseries?list=PLsyeobzWxl7poL9JTVyndKe62ieoN-MZ3" 
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+</iframe>
+
+    </div>
+  </div>
+</section>
+
+<section id="curriculum">
+  <div class="container">
+    <h2>Course Curriculum</h2>
+    <p>Everything below is covered with real-world projects, code reviews, quizzes and a GitHub portfolio.</p>
+    <div class="grid-2">
+      <ul class="check">
+        <li>Python history & installation (Windows, macOS, Linux)</li>
+        <li>Variables, data-types, operators</li>
+        <li>Control flow: if, while, for, comprehensions</li>
+        <li>Functions & lambda expressions</li>
+        <li>Built-in data structures: list, tuple, set, dict</li>
+        <li>Object-Oriented Programming (OOP)</li>
+        <li>Decorators, generators, context-managers</li>
+        <li>Error & exception handling</li>
+        <li>File I/O, CSV, JSON, Pickle</li>
+        <li>Virtual environments & packaging</li>
+      </ul>
+      <ul class="check">
+        <li>Functional programming toolkit (itertools, functools)</li>
+        <li>Popular libraries: requests, Pillow, PyPDF2, OpenPyXL</li>
+        <li>Web scraping (BeautifulSoup, Selenium)</li>
+        <li>Database access: SQLite & PostgreSQL with SQLAlchemy</li>
+        <li>Data analysis: NumPy, pandas, Matplotlib, Seaborn</li>
+        <li>Machine-Learning intro: scikit-learn</li>
+        <li>Web development: Flask & Django crash course</li>
+        <li>Testing with pytest & unittest</li>
+        <li>Debugging, profiling, logging</li>
+        <li>Deploy to Heroku, Docker & CI/CD basics</li>
+      </ul>
+    </div>
+    <br>
+    <a href="#" class="btn" onclick="alert('Enrollment opens here — connect your payment gateway or LMS');return false">Enroll now – $49</a>
+    <a href="#" class="btn btn-outline" onclick="alert('Syllabus PDF download');return false">Download syllabus</a>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="container" style="text-align:center">
+    <h2>Still thinking?</h2>
+    <p>Python is the most versatile, in-demand and beginner-friendly language on Earth.<br>
+       Join <strong>1.2 million</strong> students who took this course and landed jobs at Google, Tesla, Shopify and more.</p>
+    <br>
+    <a href="#" class="btn">Start learning today</a>
+  </div>
+</section>
+
+<footer>
+  © 2024 YourAcademy. All rights reserved.
+</footer>
+
+<!-- tiny JS for smooth scroll -->
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+    anchor.addEventListener('click',function(e){
+      e.preventDefault();
+      const tgt=document.querySelector(this.getAttribute('href'));
+      if(tgt) tgt.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+</script>
+</body>
+</html>

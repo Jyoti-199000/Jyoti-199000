@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome – Login or Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --primary: #3776ab;
+      --secondary: #f0db4f;
+      --danger: #e74c3c;
+      --success: #27ae60;
+      --radius: 14px;
+      --transition: .45s cubic-bezier(.25, .8, .25, 1);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      overflow: hidden;
+    }
+    .wrapper {
+      width: 380px;
+      max-width: 90vw;
+      perspective: 1000px;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: var(--radius);
+      padding: 2.2rem 2.5rem 2.8rem;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.18);
+      transform: translateY(40px) rotateX(10deg);
+      opacity: 0;
+      animation: slideUp 0.8s forwards;
+    }
+    @keyframes slideUp {
+      to {
+        transform: translateY(0) rotateX(0);
+        opacity: 1;
+      }
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1.6rem;
+      color: var(--dark);
+      font-weight: 600;
+    }
+    .form-group {
+      position: relative;
+      margin-bottom: 1.3rem;
+    }
+    label {
+      position: absolute;
+      left: 0;
+      top: 0.9rem;
+      color: #777;
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: 0.25s;
+    }
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+      top: -1.1rem;
+      font-size: 0.75rem;
+      color: var(--primary);
+    }
+    input {
+      width: 100%;
+      padding: 0.9rem 0;
+      border: none;
+      border-bottom: 2px solid #bbb;
+      background: transparent;
+      font-size: 1rem;
+      transition: border-color 0.3s;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .btn {
+      width: 100%;
+      padding: 0.85rem;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--primary);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    .btn:hover {
+      background: #296294;
+      transform: translateY(-2px);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+    .switch {
+      text-align: center;
+      margin-top: 1.2rem;
+      font-size: 0.9rem;
+    }
+    .switch a {
+      color: var(--primary);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .skip {
+      display: block;
+      text-align: center;
+      margin-top: 1.4rem;
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.85);
+      transition: color 0.3s;
+    }
+    .skip:hover {
+      color: #fff;
+    }
+    .strength {
+      height: 4px;
+      border-radius: 2px;
+      margin-top: 0.4rem;
+      background: #ddd;
+      overflow: hidden;
+    }
+    .strength span {
+      display: block;
+      height: 100%;
+      width: 0%;
+      transition: width 0.3s, background 0.3s;
+    }
+    .weak { width: 33%; background: var(--danger); }
+    .medium { width: 66%; background: var(--secondary); }
+    .strong { width: 100%; background: var(--success); }
+    .hidden {
+      display: none;
+    }
+    /* subtle shake on error */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .shake {
+      animation: shake 0.35s;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <!-- LOGIN CARD -->
+    <div class="card" id="loginCard">
+      <h2>Login</h2>
+      <form id="loginForm" autocomplete="off">
+        <div class="form-group">
+          <input type="email" id="loginEmail" placeholder=" " required>
+          <label>Email</label>
+        </div>
+        <div class="form-group">
+          <input type="password" id="loginPass" placeholder=" " required>
+          <label>Password</label>
+        </div>
+        <button class="btn" type="submit">Login</button>
+      </form>
+      <div class="switch">
+        New here? <a id="showSignup">Create account</a>
+      </div>
+      <a class="skip" href="index4.html">Maybe later</a>
+    </div>
+
+    <!-- SIGN-UP CARD -->
+    <div class="card hidden" id="signupCard">
+      <h2>Sign Up</h2>
+      <form id="signupForm" autocomplete="off">
+        <div class="form-group">
+          <input type="text" id="signupName" placeholder=" " required>
+          <label>Full Name</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="signupEmail" placeholder=" " required>
+          <label>Email</label>
+        </div>
+        <div class="form-group">
+          <input type="password" id="signupPass" placeholder=" " required minlength="6">
+          <label>Password</label>
+          <div class="strength"><span id="strengthBar"></span></div>
+        </div>
+        <button class="btn" type="submit">Create Account</button>
+      </form>
+      <div class="switch">
+        Already have an account? <a id="showLogin">Login</a>
+      </div>
+      <a class="skip" href="index4.html">Maybe later</a>
+    </div>
+  </div>
+
+  <script>
+    // ---------- DOM ----------
+    const loginCard = document.getElementById('loginCard');
+    const signupCard = document.getElementById('signupCard');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const showSignup = document.getElementById('showSignup');
+    const showLogin = document.getElementById('showLogin');
+    const strengthBar = document.getElementById('strengthBar');
+    const signupPass = document.getElementById('signupPass');
+
+    // ---------- SWITCH FORMS ----------
+    function fadeSwitch(hide, show) {
+      hide.style.transition = 'opacity 0.3s, transform 0.3s';
+      hide.style.opacity = 0;
+      hide.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        hide.classList.add('hidden');
+        show.classList.remove('hidden');
+        show.style.opacity = 0;
+        show.style.transform = 'translateY(-20px)';
+        setTimeout(() => {
+          show.style.opacity = 1;
+          show.style.transform = 'translateY(0)';
+        }, 30);
+      }, 300);
+    }
+    showSignup.addEventListener('click', () => fadeSwitch(loginCard, signupCard));
+    showLogin.addEventListener('click', () => fadeSwitch(signupCard, loginCard));
+
+    // ---------- PASSWORD STRENGTH ----------
+    signupPass.addEventListener('input', () => {
+      const val = signupPass.value;
+      let strength = 0;
+      if (val.length >= 6) strength++;
+      if (/[A-Z]/.test(val)) strength++;
+      if (/[0-9]/.test(val)) strength++;
+      if (/[\W]/.test(val)) strength++;
+      strengthBar.className = '';
+      if (strength === 0) {
+        strengthBar.style.width = '0%';
+      } else if (strength <= 2) {
+        strengthBar.classList.add('weak');
+      } else if (strength === 3) {
+        strengthBar.classList.add('medium');
+      } else {
+        strengthBar.classList.add('strong');
+      }
+    });// ---------- FORM HANDLERS (dummy) ----------
+function shakeCard(card) {
+  card.classList.add('shake');
+  setTimeout(() => card.classList.remove('shake'), 350);
+}
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  // demo: fail if password < 6
+  if (document.getElementById('loginPass').value.length < 6) {
+    shakeCard(loginCard);
+    return;
+  }
+  alert('Login successful! (demo)');
+  window.location.href = 'index4.html'; // redirect after auth
+});
+signupForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (signupPass.value.length < 6) {
+    shakeCard(signupCard);
+    return;
+  }
+  alert('Account created! (demo)');
+  window.location.href = 'index4.html';
+});
+  </script> 
+</body>
+</html>

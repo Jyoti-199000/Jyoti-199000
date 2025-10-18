@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Modern JavaScript Development – Complete Course</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --primary: #f0db4f;
+      --dark: #1e1e2d;
+      --light: #f5f7fa;
+      --radius: 12px;
+      --transition: .3s ease;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background: var(--light); color: var(--dark); line-height: 1.6; }
+    a { color: var(--dark); }
+    img { max-width: 100%; display: block; }
+    .container { width: 90%; max-width: 1100px; margin: auto; }
+    header { background: var(--primary); color: var(--dark); padding: 2.5rem 0; }
+    header h1 { font-size: 2.2rem; }
+    header p { opacity: .9; margin-top: .5rem; }
+    .badge { display: inline-block; background: #222; color: #fff; padding: .25rem .75rem; border-radius: 20px; font-size: .8rem; font-weight: 600; margin-bottom: 1rem; }
+    .grid-2 { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+    section { padding: 3rem 0; }
+    h2 { margin-bottom: 1rem; font-size: 1.75rem; }
+    ul.check { list-style: none; padding-left: 0; }
+    ul.check li { padding-left: 1.5rem; position: relative; margin: .5rem 0; }
+    ul.check li::before { content: "✔"; position: absolute; left: 0; color: var(--dark); font-weight: 700; }
+    .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius); box-shadow: 0 8px 20px rgba(0,0,0,.15); background: #000; }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .btn { display: inline-block; background: var(--dark); color: var(--primary); padding: .9rem 1.8rem; border-radius: var(--radius); text-decoration: none; font-weight: 600; transition: var(--transition); border: none; cursor: pointer; margin: .5rem .5rem .5rem 0; }
+    .btn:hover { background: #000; }
+    .btn-outline { background: transparent; border: 2px solid var(--dark); color: var(--dark); }
+    .btn-outline:hover { background: var(--dark); color: var(--primary); }
+    .card { background: #fff; padding: 1.8rem; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+    .tag { display: inline-block; background: #fff5b3; color: var(--dark); padding: .25rem .6rem; border-radius: 4px; font-size: .75rem; margin: .2rem; }
+    footer { text-align: center; padding: 2rem 0; font-size: .9rem; color: #666; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <span class="badge">Best-seller</span>
+    <h1>Modern JavaScript Development</h1>
+    <p>ES6+, Node, React, async, testing & real-world apps — from zero to hired.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container grid-2">
+    <div>
+      <h2>Why JavaScript?</h2>
+      <p>Created by Brendan Eich in 10 days (1995), JS is now the <strong>only language</strong> that runs on every browser, phone, server, even IoT. Facts:</p>
+      <ul class="check">
+        <li>#1 language on GitHub & Stack Overflow 2024</li>
+        <li>Average salary <strong>$110k/year</strong> US (Glassdoor)</li>
+        <li>Used by <strong>Facebook, Netflix, LinkedIn, PayPal, NASA, Trello, Discord …</strong></li>
+        <li>One language → Frontend, Backend, Mobile, Desktop, IoT</li>
+        <li>Massive ecosystem: 2 million+ npm packages</li>
+      </ul>
+      <br>
+      <a href="#curriculum" class="btn">Explore curriculum</a>
+      <a href="#video" class="btn btn-outline">Watch full tutorial</a>
+    </div>
+    <div class="card">
+      <h3>Positions you can target</h3>
+      <p><span class="tag">Frontend Developer</span><span class="tag">React Engineer</span><span class="tag">Vue Developer</span>
+      <span class="tag">Node.js Backend Engineer</span><span class="tag">Full-Stack JS Engineer</span><span class="tag">Next.js Developer</span>
+      <span class="tag">TypeScript Engineer</span><span class="tag">React Native Mobile Dev</span><span class="tag">Electron Desktop Dev</span>
+      <span class="tag">QA Automation (Cypress)</span><span class="tag">Jamstack Engineer</span></p>
+      <hr style="margin: 1.2rem 0;border:none;border-top:1px solid #ddd">
+      <h3>Built with JavaScript</h3>
+      <ul class="check">
+        <li>Facebook / Instagram web apps (React)</li>
+        <li>Netflix – fast UI & Node-powered APIs</li>
+        <li>LinkedIn – client & server (Node)</li>
+        <li>PayPal – moved from Java to Node (35 % faster, 2× fewer files)</li>
+        <li>Discord – desktop & mobile (React / React Native)</li>
+        <li>NASA – mission-data dashboards (Node + React)</li>
+        <li>Trello – real-time cards (Node, Backbone)</li>
+        <li>Uber – high-performance web & mobile</li>
+        <li>VS Code – #1 dev editor (Electron)</li>
+        <li>Slack – desktop client (Electron)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="video">
+  <div class="container">
+    <h2>Free 14-Hour Full Tutorial</h2>
+    <p>Covering ES6+, DOM, async/await, fetch, Node, Express, MongoDB, React & deployment. Play below, no login required.</p>
+    <div class="video-wrapper">
+      <!-- YouTube playlist: JavaScript Tutorial – ProgrammingKnowledge -->
+ <iframe width="100%" height="500" 
+        src="https://www.youtube.com/embed/videoseries?list=PL9ooVrP1hQOEe9EN119lMdwcBxcrBI1D3" 
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+</iframe>
+
+    </div>
+  </div>
+</section>
+
+<section id="curriculum">
+  <div class="container">
+    <h2>Course Curriculum</h2>
+    <p>Build 10 projects including a MERN-stack social network, deployed to Render & Netlify.</p>
+    <div class="grid-2">
+      <ul class="check">
+        <li>History & JS engine (V8, SpiderMonkey)</li>
+        <li>Variables, scopes, hoisting, temporal dead-zone</li>
+        <li>Data-types, type-coercion, template literals</li>
+        <li>Functions, arrow functions, IIFE, closures</li>
+        <li>Objects, prototypes, ES6 classes, inheritance</li>
+        <li>Arrays, array methods, destructuring, spread</li>
+        <li>DOM manipulation, events, event-delegation</li>
+        <li>Fetch API, async/await, error-handling</li>
+        <li>Modern ES6-ES2024 features</li>
+        <li>Modules, bundlers (Vite, Webpack basics)</li>
+      </ul>
+      <ul class="check">
+        <li>Node.js & npm ecosystem</li>
+        <li>Express.js REST APIs, routing, middleware</li>
+        <li>MongoDB & Mongoose ODM</li>
+        <li>JWT authentication & bcrypt hashing</li>
+        <li>React hooks, context, router</li>
+        <li>Custom hooks & performance optimization</li>
+        <li>Next.js crash-course (SSR/SSG)</li>
+        <li>Testing: Jest + React Testing Library</li>
+        <li>CI/CD with GitHub Actions</li>
+        <li>Deploy to Netlify, Render & Vercel</li>
+      </ul>
+    </div>
+    <br>
+    <a href="#" class="btn" onclick="alert('Enrollment opens here — connect your payment gateway or LMS');return false">Enroll now – $55</a>
+    <a href="#" class="btn btn-outline" onclick="alert('Syllabus PDF download');return false">Download syllabus</a>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="container" style="text-align:center">
+    <h2>Still thinking?</h2>
+    <p>JavaScript is the only skill that lets you build an entire product alone — frontend, backend, mobile, desktop.<br>
+       Join <strong>1.5 million</strong> learners who became hireable developers with this exact course.</p>
+    <br>
+    <a href="#" class="btn">Start learning today</a>
+  </div>
+</section>
+
+<footer>
+  © 2024 YourAcademy. All rights reserved.
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+    anchor.addEventListener('click',function(e){
+      e.preventDefault();
+      const tgt=document.querySelector(this.getAttribute('href'));
+      if(tgt) tgt.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+</script>
+</body>
+</html>

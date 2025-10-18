@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SQL & Database Management – Complete Course</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --primary: #e38c00;
+      --light: #f5f7fa;
+      --dark: #1e1e2d;
+      --radius: 12px;
+      --transition: .3s ease;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background: var(--light); color: var(--dark); line-height: 1.6; }
+    a { color: var(--primary); }
+    img { max-width: 100%; display: block; }
+    .container { width: 90%; max-width: 1100px; margin: auto; }
+    header { background: var(--primary); color: #fff; padding: 2.5rem 0; }
+    header h1 { font-size: 2.2rem; }
+    header p { opacity: .9; margin-top: .5rem; }
+    .badge { display: inline-block; background: #222; color: #fff; padding: .25rem .75rem; border-radius: 20px; font-size: .8rem; font-weight: 600; margin-bottom: 1rem; }
+    .grid-2 { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+    section { padding: 3rem 0; }
+    h2 { margin-bottom: 1rem; font-size: 1.75rem; }
+    ul.check { list-style: none; padding-left: 0; }
+    ul.check li { padding-left: 1.5rem; position: relative; margin: .5rem 0; }
+    ul.check li::before { content: "✔"; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+    .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius); box-shadow: 0 8px 20px rgba(0,0,0,.15); background: #000; }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .btn { display: inline-block; background: var(--primary); color: #fff; padding: .9rem 1.8rem; border-radius: var(--radius); text-decoration: none; font-weight: 600; transition: var(--transition); border: none; cursor: pointer; margin: .5rem .5rem .5rem 0; }
+    .btn:hover { background: #c57600; }
+    .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: #fff; }
+    .card { background: #fff; padding: 1.8rem; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+    .tag { display: inline-block; background: #ffe9cc; color: var(--dark); padding: .25rem .6rem; border-radius: 4px; font-size: .75rem; margin: .2rem; }
+    footer { text-align: center; padding: 2rem 0; font-size: .9rem; color: #666; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <span class="badge">Best-seller</span>
+    <h1>SQL & Database Management</h1>
+    <p>From basic queries to advanced analytics, indexing, optimization & cloud deployments.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container grid-2">
+    <div>
+      <h2>Why SQL?</h2>
+      <p>Born at IBM in 1974, SQL is the lingua-franca of data. Every app, bank, retailer & startup stores data in relational databases. Facts:</p>
+      <ul class="check">
+        <li>Top-3 skill requested in data & engineering jobs</li>
+        <li>Average salary <strong>$98k/year</strong> US (Glassdoor)</li>
+        <li>Used by <strong>Apple, Google, Netflix, Amazon, JPMorgan, Walmart …</strong></li>
+        <li>Portable across MySQL, PostgreSQL, SQL Server, Oracle, SQLite, MariaDB</li>
+        <li>Foundation for data-science, analytics, ML feature stores</li>
+      </ul>
+      <br>
+      <a href="#curriculum" class="btn">Explore curriculum</a>
+      <a href="#video" class="btn btn-outline">Watch full tutorial</a>
+    </div>
+    <div class="card">
+      <h3>Positions you can target</h3>
+      <p><span class="tag">SQL Developer</span><span class="tag">Database Administrator (DBA)</span><span class="tag">Data Analyst</span>
+      <span class="tag">Data Engineer</span><span class="tag">BI Engineer</span><span class="tag">ETL Developer</span>
+      <span class="tag">Analytics Engineer</span><span class="tag">Cloud Data Architect</span><span class="tag">ML Data Engineer</span>
+      <span class="tag">Performance Consultant</span></p>
+      <hr style="margin: 1.2rem 0;border:none;border-top:1px solid #ddd">
+      <h3>Built with SQL</h3>
+      <ul class="check">
+        <li>Facebook – 2+ trillion rows/day in MySQL shards</li>
+        <li>YouTube – PostgreSQL for metadata & recommendations</li>
+        <li>Netflix – 100 TB+ daily writes on PostgreSQL</li>
+        <li>Airbnb – 100k+ queries/sec on MySQL & Vitess</li>
+        <li>Spotify – analytics on BigQuery (SQL dialect)</li>
+        <li>JPMorgan – trading & risk on Oracle Exadata</li>
+        <li>Amazon – warehouse inventory on Aurora</li>
+        <li>Uber – trip data on PostgreSQL & Schemaless</li>
+        <li>LinkedIn – member graph on Espresso (SQL layer)</li>
+        <li>NASA – mission telemetry on PostgreSQL</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="video">
+  <div class="container">
+    <h2>Free 12-Hour Full Tutorial</h2>
+    <p>Beginner → advanced: SELECT → joins → window functions → indexes → query-plan tuning → cloud deploy. Play below, no login.</p>
+    <div class="video-wrapper">
+      <!-- YouTube playlist: SQL Tutorial – ProgrammingKnowledge -->
+   <iframe width="100%" height="500" 
+        src="https://www.youtube.com/embed/videoseries?list=PLEiEAq2VkUUKL3yPbn8yWnatjUg0P0I-Z" 
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+</iframe>
+
+    </div>
+  </div>
+</section>
+
+<section id="curriculum">
+  <div class="container">
+    <h2>Course Curriculum</h2>
+    <p>20 modules, 5 real-world projects: e-commerce warehouse, ride-sharing analytics, school management, movie-recommendation engine, financial trading ledger.</p>
+    <div class="grid-2">
+      <ul class="check">
+        <li>History & installing MySQL / PostgreSQL / Docker</li>
+        <li>Schemas, tables, keys, constraints</li>
+        <li>SELECT, WHERE, ORDER BY, LIMIT</li>
+        <li>INSERT, UPDATE, DELETE</li>
+        <li>Joins: inner, left, right, full, cross</li>
+        <li>Aggregation: GROUP BY, HAVING</li>
+        <li>Sub-queries & CTEs</li>
+        <li>Window functions: ROW_NUMBER, RANK, LAG/LEAD</li>
+        <li>Indexes, B-tree, hash, composite</li>
+        <li>Views & materialized views</li>
+      </ul>
+      <ul class="check">
+        <li>Stored procedures & functions</li>
+        <li>Triggers & scheduled events</li>
+        <li>Transactions, ACID, isolation levels</li>
+        <li>Query-plan analysis & EXPLAIN</li>
+        <li>Normalization vs denormalization</li>
+        <li>Backup, restore, replication</li>
+        <li>Security: roles, grants, row-level security</li>
+        <li>Cloud: AWS RDS, Aurora, Google Cloud SQL</li>
+        <li>Connecting from Python, Node, Go</li>
+        <li>OLAP, columnar stores, BigQuery basics</li>
+      </ul>
+    </div>
+    <br>
+    <a href="#" class="btn" onclick="alert('Enrollment opens here — connect your payment gateway or LMS');return false">Enroll now – $45</a>
+    <a href="#" class="btn btn-outline" onclick="alert('Syllabus PDF download');return false">Download syllabus</a>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="container" style="text-align:center">
+    <h2>Still thinking?</h2>
+    <p>Data is the new oil — and SQL is the drill.<br>
+       Master it once, query any database on Earth and boost your salary instantly.</p>
+    <br>
+    <a href="#" class="btn">Start learning today</a>
+  </div>
+</section>
+
+<footer>
+  © 2024 YourAcademy. All rights reserved.
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+    anchor.addEventListener('click',function(e){
+      e.preventDefault();
+      const tgt=document.querySelector(this.getAttribute('href'));
+      if(tgt) tgt.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+</script>
+</body>
+</html>

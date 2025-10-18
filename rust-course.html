@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rust Systems Programming – Complete Course</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --primary: #dea584;
+      --dark: #1e1e2d;
+      --light: #f5f7fa;
+      --radius: 12px;
+      --transition: .3s ease;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background: var(--light); color: var(--dark); line-height: 1.6; }
+    a { color: var(--primary); }
+    img { max-width: 100%; display: block; }
+    .container { width: 90%; max-width: 1100px; margin: auto; }
+    header { background: var(--primary); color: #fff; padding: 2.5rem 0; }
+    header h1 { font-size: 2.2rem; }
+    header p { opacity: .9; margin-top: .5rem; }
+    .badge { display: inline-block; background: #222; color: #fff; padding: .25rem .75rem; border-radius: 20px; font-size: .8rem; font-weight: 600; margin-bottom: 1rem; }
+    .grid-2 { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+    section { padding: 3rem 0; }
+    h2 { margin-bottom: 1rem; font-size: 1.75rem; }
+    ul.check { list-style: none; padding-left: 0; }
+    ul.check li { padding-left: 1.5rem; position: relative; margin: .5rem 0; }
+    ul.check li::before { content: "✔"; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+    .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: var(--radius); box-shadow: 0 8px 20px rgba(0,0,0,.15); background: #000; }
+    .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .btn { display: inline-block; background: var(--primary); color: #fff; padding: .9rem 1.8rem; border-radius: var(--radius); text-decoration: none; font-weight: 600; transition: var(--transition); border: none; cursor: pointer; margin: .5rem .5rem .5rem 0; }
+    .btn:hover { background: #c08a6a; }
+    .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: #fff; }
+    .card { background: #fff; padding: 1.8rem; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+    .tag { display: inline-block; background: #f5e9df; color: var(--dark); padding: .25rem .6rem; border-radius: 4px; font-size: .75rem; margin: .2rem; }
+    footer { text-align: center; padding: 2rem 0; font-size: .9rem; color: #666; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <span class="badge">Best-seller</span>
+    <h1>Rust Systems Programming</h1>
+    <p>Memory-safe, blazing-fast systems code — from basics to async, WebAssembly & embedded.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container grid-2">
+    <div>
+      <h2>Why Rust?</h2>
+      <p>Created by Mozilla in 2010, Rust delivers C++ speed with zero-cost memory safety. Today it’s:</p>
+      <ul class="check">
+        <li>Most-loved language 7 years in a row (Stack Overflow)</li>
+        <li>Average salary <strong>$125k/year</strong> US (Glassdoor)</li>
+        <li>Used by <strong>Dropbox, Discord, AWS, Cloudflare, Facebook, Microsoft, Toyota …</strong></li>
+        <li>Zero-cost abstractions, no GC, fearless concurrency</li>
+        <li>Runs embedded, WebAssembly, kernels, CLI, web servers</li>
+      </ul>
+      <br>
+      <a href="#curriculum" class="btn">Explore curriculum</a>
+      <a href="#video" class="btn btn-outline">Watch full tutorial</a>
+    </div>
+    <div class="card">
+      <h3>Positions you can target</h3>
+      <p><span class="tag">Rust Systems Engineer</span><span class="tag">Embedded Rust Dev</span><span class="tag">WebAssembly Engineer</span>
+      <span class="tag">Blockchain Engineer</span><span class="tag">Kernel/Driver Dev</span><span class="tag">Cryptography Engineer</span>
+      <span class="tag">CLI Tools Engineer</span><span class="tag">DevSecOps Engineer</span><span class="tag">Game Engine Programmer</span>
+      <span class="tag">IoT Firmware Engineer</span></p>
+      <hr style="margin: 1.2rem 0;border:none;border-top:1px solid #ddd">
+      <h3>Built with Rust</h3>
+      <ul class="check">
+        <li>Discord – 150 M+ users, read-state service</li>
+        <li>Dropbox – file-sync engine (60 % code)</li>
+        <li>Cloudflare – edge proxy (pingora)</li>
+        <li>AWS – Firecracker micro-VMs (Lambda)</li>
+        <li>Facebook – source-control (Mononoke)</li>
+        <li>Toyota / Honda – automotive ECUs</li>
+        <li>Alacritty – fastest terminal emulator</li>
+        <li>Ripgrep – 10× faster than grep</li>
+        <li>Polkadot – blockchain runtime</li>
+        <li>Microsoft – Windows kernel modules</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="video">
+  <div class="container">
+    <h2>Free 13-Hour Full Tutorial</h2>
+    <p>Beginner → advanced: ownership, lifetimes, traits, async, Tokio, WebAssembly, embedded. Play below, no login.</p>
+    <div class="video-wrapper">
+      <!-- YouTube playlist: Rust Tutorial – ProgrammingKnowledge -->
+    <iframe width="100%" height="500" 
+        src="https://www.youtube.com/embed/videoseries?list=PLVvjrrRCBy2JSHf9tGxGKJ-bYAN_uDCUL" 
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+</iframe>
+
+    </div>
+  </div>
+</section>
+
+<section id="curriculum">
+  <div class="container">
+    <h2>Course Curriculum</h2>
+    <p>20 modules, 5 capstones: CLI file-tool, multithreaded web-server, embedded LED blink, WASM game-of-life, blockchain block-module.</p>
+    <div class="grid-2">
+      <ul class="check">
+        <li>History & installing Rustup, Cargo</li>
+        <li>Variables, mutability, data-types</li>
+        <li>Functions, expressions, macros</li>
+        <li>Control flow, loops, pattern matching</li>
+        <li>Ownership, borrowing, lifetimes</li>
+        <li>Structs, enums, methods</li>
+        <li>Traits & generics</li>
+        <li>Error handling (Result, Option)</li>
+        <li>Collections: Vec, HashMap, HashSet</li>
+        <li>Iterators, closures, functional style</li>
+      </ul>
+      <ul class="check">
+        <li>Modules, packages, workspaces</li>
+        <li>Testing, benchmarking, CI with GitHub Actions</li>
+        <li>Smart pointers (Box, Rc, RefCell, Arc, Mutex)</li>
+        <li>Concurrency, threads, channels, Tokio async</li>
+        <li>Network programming (TCP, HTTP)</li>
+        <li>FFI & calling C libraries</li>
+        <li>WebAssembly with wasm-bindgen</li>
+        <li>Embedded no_std, cortex-m, RTFM</li>
+        <li>Introduction to Bevy game engine</li>
+        <li>Deploy CLI to crates.io, WASM to npm</li>
+      </ul>
+    </div>
+    <br>
+    <a href="#" class="btn" onclick="alert('Enrollment opens here — connect your payment gateway or LMS');return false">Enroll now – $69</a>
+    <a href="#" class="btn btn-outline" onclick="alert('Syllabus PDF download');return false">Download syllabus</a>
+  </div>
+</section>
+
+<section style="background:#fff">
+  <div class="container" style="text-align:center">
+    <h2>Still thinking?</h2>
+    <p>Rust is the future of systems programming — memory-safe, lightning-fast, and beloved by developers.<br>
+       Join <strong>450k</strong> learners who now work at Cloudflare, AWS, Facebook & more.</p>
+    <br>
+    <a href="#" class="btn">Start learning today</a>
+  </div>
+</section>
+
+<footer>
+  © 2024 YourAcademy. All rights reserved.
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+    anchor.addEventListener('click',function(e){
+      e.preventDefault();
+      const tgt=document.querySelector(this.getAttribute('href'));
+      if(tgt) tgt.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+</script>
+</body>
+</html>
