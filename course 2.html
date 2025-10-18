@@ -14,6 +14,11 @@
         --light: #f8f9fa;
         --danger: #ea4335;
     }
+    .course-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
@@ -121,7 +126,7 @@
                 <li><a href="#syllabus">Syllabus</a></li>
                 <li><a href="#problems">Problems</a></li>
                 <li><a href="#docs">Documentation</a></li>
-                <li><a href="#" class="btn btn-secondary">Login</a></li>
+                <li><a href="auth.html" class="btn btn-secondary">Login</a></li>
             </ul>
         </nav>
     </div>
@@ -141,73 +146,103 @@
 
 <!-- Courses Section -->
 <section id="courses" class="courses fade-in">
-    <div class="container">
-        <h2 class="section-title">Our Courses</h2>
-        <div class="courses-grid">
-            <!-- Python -->
-            <div class="course-card">
-                <div class="course-img"><img src="python2.jpg" alt="Python Course"></div>
-                <div class="course-info">
-                    <span class="language" style="background-color:#3776ab;color:white;">Python</span>
-                    <h3>Python Mastery</h3>
-                    <p>From basics to advanced Python programming, data science, and automation.</p>
-                    <div class="course-meta"><span>⭐ 4.8/5 (1.2k)</span><span>🕒 42 hrs</span></div>
-                </div>
-            </div>
-            <!-- Java -->
-            <div class="course-card">
-                <div class="course-img"><img src="java.jpg" alt="Java Course"></div>
-                <div class="course-info">
-                    <span class="language" style="background-color:#5382a1;color:white;">Java</span>
-                    <h3>Java Fundamentals</h3>
-                    <p>Learn Java, OOP, and build robust applications.</p>
-                    <div class="course-meta"><span>⭐ 4.7/5 (890)</span><span>🕒 36 hrs</span></div>
-                </div>
-            </div>
-            <!-- JavaScript -->
-            <div class="course-card">
-                <div class="course-img"><img src="javascript2.jpg" alt="JavaScript Course"></div>
-                <div class="course-info">
-                    <span class="language" style="background-color:#f0db4f;color:var(--dark);">JavaScript</span>
-                    <h3>Modern JS Development</h3>
-                    <p>Learn JS, ES6+, frameworks, and build interactive web apps.</p>
-                    <div class="course-meta"><span>⭐ 4.9/5 (1.5k)</span><span>🕒 48 hrs</span></div>
-                </div>
-            </div>
-            <!-- C++ -->
-            <div class="course-card">
-                <div class="course-img"><img src="c++ optimization.png" alt="C++ Course"></div>
-                <div class="course-info">
-                    <span class="language" style="background-color:#00599C;color:white;">C++</span>
-                    <h3>Complete C++ Programming</h3>
-                    <p>Learn C++ basics, OOP, STL, and system programming.</p>
-                    <div class="course-meta"><span>⭐ 4.6/5 (700)</span><span>🕒 40 hrs</span></div>
-                </div>
-            </div>
-            <!-- Rust -->
-            <div class="course-card">
-                <div class="course-img"><img src="rust.webp" alt="Rust Course"></div>
-                <div class="course-info">
-                    <span class="language" style="background-color:#DEA584;color:white;">Rust</span>
-                    <h3>Rust Systems Programming</h3>
-                    <p>Learn safe and fast systems programming with Rust.</p>
-                    <div class="course-meta"><span>⭐ 4.5/5 (450)</span><span>🕒 35 hrs</span></div>
-                </div>
-            </div>
-            <!-- SQL -->
-            <div class="course-card">
-                <div class="course-img"><img src="SQL-Server-1-1.jpg" alt="SQL Course"></div>
-                <div class="course-info">
-                    <span class="language" style="background-color:#e38c00;color:white;">SQL</span>
-                    <h3>SQL & Database Management</h3>
-                    <p>Master relational databases, queries, and advanced SQL techniques.</p>
-                    <div class="course-meta"><span>⭐ 4.7/5 (600)</span><span>🕒 30 hrs</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+  <div class="container">
+    <h2 class="section-title">Our Courses</h2>
+    <div class="courses-grid">
 
+      <!-- Python -->
+      <a href="python-course.html" class="course-link">
+        <div class="course-card">
+          <div class="course-img"><img src="python2.jpg" alt="Python Course"></div>
+          <div class="course-info">
+            <span class="language" style="background-color:#3776ab;color:white;">Python</span>
+            <h3>Python Mastery</h3>
+            <p>From basics to advanced Python programming, data science, and automation.</p>
+            <div class="course-meta">
+              <span>⭐ 4.8/5 (1.2k)</span><span>🕒 42 hrs</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Java -->
+      <a href="java-course.html" class="course-link">
+        <div class="course-card">
+          <div class="course-img"><img src="java.jpg" alt="Java Course"></div>
+          <div class="course-info">
+            <span class="language" style="background-color:#5382a1;color:white;">Java</span>
+            <h3>Java Fundamentals</h3>
+            <p>Learn Java, OOP, and build robust applications.</p>
+            <div class="course-meta">
+              <span>⭐ 4.7/5 (890)</span><span>🕒 36 hrs</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- JavaScript -->
+      <a href="javascript-course.html" class="course-link">
+        <div class="course-card">
+          <div class="course-img"><img src="javascript2.jpg" alt="JavaScript Course"></div>
+          <div class="course-info">
+            <span class="language" style="background-color:#f0db4f;color:var(--dark);">JavaScript</span>
+            <h3>Modern JS Development</h3>
+            <p>Learn JS, ES6+, frameworks, and build interactive web apps.</p>
+            <div class="course-meta">
+              <span>⭐ 4.9/5 (1.5k)</span><span>🕒 48 hrs</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- C++ -->
+      <a href="cpp-course.html" class="course-link">
+        <div class="course-card">
+          <div class="course-img"><img src="c++ optimization.png" alt="C++ Course"></div>
+          <div class="course-info">
+            <span class="language" style="background-color:#00599C;color:white;">C++</span>
+            <h3>Complete C++ Programming</h3>
+            <p>Learn C++ basics, OOP, STL, and system programming.</p>
+            <div class="course-meta">
+              <span>⭐ 4.6/5 (700)</span><span>🕒 40 hrs</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Rust -->
+      <a href="rust-course.html" class="course-link">
+        <div class="course-card">
+          <div class="course-img"><img src="rust.webp" alt="Rust Course"></div>
+          <div class="course-info">
+            <span class="language" style="background-color:#DEA584;color:white;">Rust</span>
+            <h3>Rust Systems Programming</h3>
+            <p>Learn safe and fast systems programming with Rust.</p>
+            <div class="course-meta">
+              <span>⭐ 4.5/5 (450)</span><span>🕒 35 hrs</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- SQL -->
+      <a href="sql-course.html" class="course-link">
+        <div class="course-card">
+          <div class="course-img"><img src="SQL-Server-1-1.jpg" alt="SQL Course"></div>
+          <div class="course-info">
+            <span class="language" style="background-color:#e38c00;color:white;">SQL</span>
+            <h3>SQL & Database Management</h3>
+            <p>Master relational databases, queries, and advanced SQL techniques.</p>
+            <div class="course-meta">
+              <span>⭐ 4.7/5 (600)</span><span>🕒 30 hrs</span>
+            </div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
 <!-- Syllabus Section -->
 <section id="syllabus" class="language-tabs fade-in">
     <div class="container">
@@ -348,17 +383,173 @@ LIMIT 3;</code></pre></div>
 <section id="docs" class="documentation fade-in">
     <div class="container">
         <h2 class="section-title">Documentation</h2>
-        <div class="doc-container">
+
+        <style>
+            /* Crazy docs button styles (scoped to this section) */
+            .doc-crazy { padding: 2rem 1rem; background: linear-gradient(180deg,#f6f8ff 0,#eef6ff 100%); border-radius: 16px; box-shadow: 0 10px 30px rgba(20,30,60,.06); }
+            .doc-nav-list { list-style:none; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin:0 0 1.5rem 0; padding:0; }
+
+            .doc-btn {
+                --w: 220px;
+                position: relative;
+                display: inline-grid;
+                place-items: center;
+                width: var(--w);
+                padding: .85rem 1.2rem;
+                border-radius: 14px;
+                text-decoration: none;
+                color: white;
+                font-weight: 800;
+                letter-spacing: .6px;
+                transform: perspective(800px) rotateX(6deg) skew(-6deg);
+                transition: transform .45s cubic-bezier(.2,.9,.2,1), filter .35s;
+                z-index: 2;
+                overflow: hidden;
+                box-shadow:
+                    0 8px 30px rgba(66,133,244,0.12),
+                    inset 0 -2px 6px rgba(0,0,0,0.06);
+            }
+
+            /* animated colorful base gradients */
+            .doc-btn--python { background: linear-gradient(135deg,#306998 0%,#3776ab 50%,#7fb7ff 100%); }
+            .doc-btn--java   { background: linear-gradient(135deg,#5382a1 0%,#e76f51 60%,#ffb88c 100%); }
+            .doc-btn--js     { background: linear-gradient(135deg,#f0db4f 0%,#f7c948 60%,#ffd86b 100%); color:#222; }
+            .doc-btn--cpp    { background: linear-gradient(135deg,#00599C 0%,#143b66 70%); }
+            .doc-btn--rust   { background: linear-gradient(135deg,#dea584 0%,#b86e3e 60%); }
+            .doc-btn--sql    { background: linear-gradient(135deg,#e38c00 0%,#ffb04d 60%); }
+
+            /* neon halo (rotating conic gradient) */
+            .doc-btn::before {
+                content: "";
+                position: absolute;
+                inset: -2px;
+                border-radius: 16px;
+                background: conic-gradient(from 0deg, rgba(255,255,255,0.03), rgba(255,255,255,0) 10%, rgba(255,255,255,0.03));
+                filter: blur(12px) saturate(140%);
+                opacity: .9;
+                z-index: 1;
+                transition: opacity .3s;
+                animation: spinHalo 6s linear infinite;
+                mix-blend-mode: screen;
+            }
+
+            /* sparkles */
+            .doc-btn::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 14px;
+                background: radial-gradient(closest-side, rgba(255,255,255,0.12), rgba(255,255,255,0) 40%);
+                transform: translateY(-40%);
+                opacity: .6;
+                z-index: 3;
+                pointer-events: none;
+                animation: shimmer 3.2s linear infinite;
+            }
+
+            .doc-badge {
+                display:inline-grid;
+                place-items:center;
+                width:34px;height:34px;
+                border-radius:10px;
+                margin-right:.6rem;
+                font-size:1.05rem;
+                transform: skew(6deg) translateZ(20px);
+                box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+                background: rgba(255,255,255,0.12);
+                backdrop-filter: blur(4px);
+            }
+
+            .doc-label { display:flex; align-items:center; gap:.4rem; z-index:4; transform: skew(6deg); }
+
+            .doc-btn:hover {
+                transform: perspective(900px) rotateX(0deg) skew(0deg) translateY(-8px) scale(1.03);
+                filter: brightness(1.06) saturate(1.12) drop-shadow(0 18px 40px rgba(66,133,244,0.12));
+            }
+
+            .doc-btn:active { transform: translateY(-2px) scale(.995); }
+
+            /* micro-jitter on hover for crazy effect */
+            .doc-btn:hover { animation: microJitter .8s linear both; }
+
+            /* small animated accent ribbon */
+            .doc-ribbon {
+                position:absolute;
+                right:-30%;
+                top:-30%;
+                width:200%;
+                height:200%;
+                background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06));
+                transform: rotate(25deg);
+                z-index:0;
+                animation: floatRibbon 8s ease-in-out infinite;
+                pointer-events:none;
+            }
+
+            /* responsive smaller widths */
+            @media (max-width:600px){ .doc-btn{ --w:160px; } .doc-badge{width:28px;height:28px;font-size:.9rem;} }
+
+            /* animations */
+            @keyframes spinHalo { to { transform: rotate(360deg); } }
+            @keyframes shimmer { 0%{ transform: translateX(-120%);} 50%{ transform: translateX(120%);} 100%{ transform: translateX(-120%);} }
+            @keyframes microJitter {
+                0%{ transform: translateY(-8px) rotate(0.01deg) }
+                25%{ transform: translateY(-7px) rotate(-0.2deg) }
+                50%{ transform: translateY(-8px) rotate(0.15deg) }
+                75%{ transform: translateY(-6px) rotate(-0.12deg) }
+                100%{ transform: translateY(-8px) rotate(0.01deg) }
+            }
+            @keyframes floatRibbon {
+                0%,100% { transform: rotate(25deg) translateY(0px); }
+                50% { transform: rotate(25deg) translateY(8px); }
+            }
+
+            /* doc content box */
+            .doc-content { text-align:center; padding:1.25rem 1rem; border-radius:10px; background:linear-gradient(180deg,#ffffff,#fbfdff); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); color:#3b4250; font-weight:600; }
+        </style>
+
+        <div class="doc-crazy doc-container">
             <ul class="doc-nav-list">
-                <li class="doc-nav-item"><a href="https://docs.python.org/3/" target="_blank">Python Docs</a></li>
-                <li class="doc-nav-item"><a href="https://docs.oracle.com/en/java/" target="_blank">Java Docs</a></li>
-                <li class="doc-nav-item"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">JS Docs</a></li>
-                <li class="doc-nav-item"><a href="https://en.cppreference.com/w/" target="_blank">C++ Docs</a></li>
-                <li class="doc-nav-item"><a href="https://doc.rust-lang.org/" target="_blank">Rust Docs</a></li>
-                <li class="doc-nav-item"><a href="https://www.postgresql.org/docs/" target="_blank">SQL Docs</a></li>
+                <li>
+                    <a class="doc-btn doc-btn--python" href="https://docs.python.org/3/" target="_blank" rel="noopener">
+                        <span class="doc-ribbon" aria-hidden="true"></span>
+                        <span class="doc-label"><span class="doc-badge">Py</span>Python Docs</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="doc-btn doc-btn--java" href="https://docs.oracle.com/en/java/" target="_blank" rel="noopener">
+                        <span class="doc-ribbon" aria-hidden="true"></span>
+                        <span class="doc-label"><span class="doc-badge">☕</span>Java Docs</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="doc-btn doc-btn--js" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener">
+                        <span class="doc-ribbon" aria-hidden="true"></span>
+                        <span class="doc-label"><span class="doc-badge">JS</span>JS Docs</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="doc-btn doc-btn--cpp" href="https://en.cppreference.com/w/" target="_blank" rel="noopener">
+                        <span class="doc-ribbon" aria-hidden="true"></span>
+                        <span class="doc-label"><span class="doc-badge">C++</span>C++ Docs</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="doc-btn doc-btn--rust" href="https://doc.rust-lang.org/" target="_blank" rel="noopener">
+                        <span class="doc-ribbon" aria-hidden="true"></span>
+                        <span class="doc-label"><span class="doc-badge">Rs</span>Rust Docs</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="doc-btn doc-btn--sql" href="https://www.postgresql.org/docs/" target="_blank" rel="noopener">
+                        <span class="doc-ribbon" aria-hidden="true"></span>
+                        <span class="doc-label"><span class="doc-badge">DB</span>SQL Docs</span>
+                    </a>
+                </li>
             </ul>
+
             <div class="doc-content">
-                <p>Select a documentation link above to explore tutorials, references, and examples.</p>
+                <p>Select a documentation button above — they wave, glow and jitter for instant attention. Each opens in a new tab.</p>
             </div>
         </div>
     </div>
