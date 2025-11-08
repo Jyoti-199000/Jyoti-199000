@@ -14,8 +14,38 @@
         --light: #f8f9fa;
         --danger: #ea4335;
     }
+
+    /* Live Chat Button Styles */
+    .live-chat-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transition: all 0.3s ease;
+        z-index: 9999;
+    }
+
+    .live-chat-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+
+    .live-chat-btn img {
+        width: 30px;
+        height: 30px;
+        filter: brightness(0) invert(1);
+    }
+
     .course-link {
-  text-decoration: none;
+        text-decoration: none;
   color: inherit;
   display: block;
 }
@@ -131,6 +161,117 @@
         </nav>
     </div>
 </header>
+
+<!-- Live Chat Button -->
+<!-- Live Chat (Professional) -->
+<style>
+/* scoped styles for professional live chat */
+.live-chat-btn { width:64px; height:64px; right:20px; bottom:20px; background: linear-gradient(135deg,#0b63d4,#0a47a1); border-radius:12px; }
+.live-chat-btn img, .live-chat-btn svg { width:34px; height:34px; filter: none; }
+.live-chat-badge { position: absolute; right:4px; top:4px; background:#ffd54f; color:#111; font-weight:700; font-size:11px; padding:2px 6px; border-radius:10px; }
+.live-chat-panel {
+    position: fixed; right:20px; bottom:96px; width:360px; max-height:62vh; background:#fff; border-radius:12px;
+    box-shadow: 0 12px 40px rgba(10,30,80,0.18); overflow: hidden; display:none; z-index:10000; font-family:inherit;
+}
+.live-chat-panel.open { display:block; }
+.live-chat-header { display:flex; gap:10px; align-items:center; padding:14px; background:linear-gradient(90deg,#0b63d4,#0a47a1); color:#fff; }
+.live-chat-avatar { width:44px; height:44px; border-radius:8px; background:rgba(255,255,255,0.12); display:grid; place-items:center; font-weight:700; }
+.live-chat-title { font-size:15px; font-weight:700; }
+.live-chat-sub { font-size:12px; opacity:0.9; margin-top:2px; }
+.live-chat-messages { padding:12px; max-height:320px; overflow:auto; background:#f7f9fc; display:flex; flex-direction:column; gap:8px; }
+.msg { max-width:78%; padding:10px 12px; border-radius:12px; font-size:13px; line-height:1.3; }
+.msg.pro { background: #e8f0ff; align-self:flex-start; color:#0b2b6b; }
+.msg.user { background: #0b63d4; color:#fff; align-self:flex-end; }
+.live-chat-input { display:flex; gap:8px; padding:10px; border-top:1px solid #eef2fb; background:#fff; }
+.live-chat-input input { flex:1; padding:10px 12px; border-radius:8px; border:1px solid #e6eefc; outline:none; font-size:14px; }
+.live-chat-input button { background:linear-gradient(90deg,#0b63d4,#0a47a1); color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700; }
+.live-chat-close { margin-left:auto; background:transparent; border:none; color:rgba(255,255,255,0.9); font-size:18px; cursor:pointer; }
+</style>
+
+<div class="live-chat-btn" role="button" aria-label="Chat with a professional" tabindex="2" id="liveChatBtn">
+        <!-- professional inline SVG logo -->
+        <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#4dabf7"/><stop offset="1" stop-color="#0a47a1"/></linearGradient></defs>
+                <rect rx="10" width="48" height="48" fill="url(#g)"/>
+                <g transform="translate(8 8)" fill="#fff" opacity="0.98">
+                        <circle cx="8" cy="8" r="6"/>
+                        <path d="M0 26c0-6.6 6.7-12 16-12s16 5.4 16 12v2H0v-2z" />
+                </g>
+        </svg>
+        <span class="live-chat-badge" aria-hidden="true">Pro</span>
+</div>
+
+<div class="live-chat-panel" id="liveChatPanel" aria-hidden="true" role="dialog" aria-label="Chat with Edumart professional">
+        <div class="live-chat-header">
+                <div class="live-chat-avatar" aria-hidden="true">
+                        <!-- simple professional avatar -->
+                        <svg viewBox="0 0 32 32" width="28" height="28" xmlns="http://www.w3.org/2000/svg" fill="none">
+                                <rect width="32" height="32" rx="6" fill="rgba(255,255,255,0.08)"/>
+                                <path d="M16 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="#fff" opacity=".95"/>
+                                <path d="M6 26c1-5 6-7 10-7s9 2 10 7H6z" fill="#fff" opacity=".95"/>
+                        </svg>
+                </div>
+                <div>
+                        <div class="live-chat-title">Edumart Pro</div>
+                        <div class="live-chat-sub">Connect with a professional tutor</div>
+                </div>
+                <button class="live-chat-close" id="liveChatClose" aria-label="Close chat">&times;</button>
+        </div>
+
+        <div class="live-chat-messages" id="liveChatMessages" aria-live="polite">
+                <div class="msg pro">Hi! I'm a professional instructor. How can I help you today?</div>
+        </div>
+
+        <div class="live-chat-input">
+                <input type="text" id="liveChatInput" placeholder="Type your question..." aria-label="Type your message">
+                <button id="liveChatSend" aria-label="Send message">Send</button>
+        </div>
+</div>
+
+<script>
+(function(){
+    const btn = document.getElementById('liveChatBtn');
+    const panel = document.getElementById('liveChatPanel');
+    const closeBtn = document.getElementById('liveChatClose');
+    const sendBtn = document.getElementById('liveChatSend');
+    const input = document.getElementById('liveChatInput');
+    const msgs = document.getElementById('liveChatMessages');
+
+    function openChat(){
+        panel.classList.add('open'); panel.setAttribute('aria-hidden','false');
+        btn.setAttribute('aria-expanded','true');
+        input.focus();
+    }
+    function closeChat(){
+        panel.classList.remove('open'); panel.setAttribute('aria-hidden','true');
+        btn.setAttribute('aria-expanded','false');
+    }
+
+    btn.addEventListener('click', () => {
+        if(panel.classList.contains('open')) closeChat(); else openChat();
+    });
+    closeBtn.addEventListener('click', closeChat);
+    sendBtn.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', (e)=> { if(e.key === 'Enter') sendMessage(); });
+
+    function sendMessage(){
+        const text = input.value.trim();
+        if(!text) return;
+        appendMsg('user', text);
+        input.value = '';
+        // simulated professional reply (replace with real backend)
+        setTimeout(()=> appendMsg('pro', 'Thanks — a professional will review and reply shortly.'), 800);
+    }
+
+    function appendMsg(kind, text){
+        const d = document.createElement('div');
+        d.className = 'msg ' + (kind === 'user' ? 'user' : 'pro');
+        d.textContent = text;
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+    }
+})();
+</script>
 
 <!-- Hero Section -->
 <section class="hero fade-in">
