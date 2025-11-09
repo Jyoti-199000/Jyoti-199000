@@ -4,6 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Edumart - Learn Python, Java, JavaScript, C++, Rust & SQL</title>
+
+<!-- External Libraries -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
 <style>
     /* Global Styles */
     :root {
@@ -14,40 +27,160 @@
         --light: #f8f9fa;
         --danger: #ea4335;
     }
-    .course-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
+
+    /* Dark Mode Variables */
+    [data-theme="dark"] {
+        --primary: #5a9bff;
+        --secondary: #4bc267;
+        --accent: #ffd042;
+        --dark: #f8f9fa;
+        --light: #1a1a1a;
+        --bg-main: #121212;
+        --bg-card: #1e1e1e;
+        --text-main: #e0e0e0;
+    }
+
+    [data-theme="light"] {
+        --bg-main: #f8f9fa;
+        --bg-card: #ffffff;
+        --text-main: #202124;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-    body { background-color: var(--light); color: var(--dark); line-height: 1.6; }
+    body { background-color: var(--bg-main, var(--light)); color: var(--text-main, var(--dark)); line-height: 1.6; transition: background-color 0.3s, color 0.3s; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Scroll Progress Bar */
+    .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        z-index: 10000;
+        transition: width 0.1s ease;
+    }
 
     /* Header */
     header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 1rem 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);}
     nav { display: flex; justify-content: space-between; align-items: center; }
     .logo { font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; }
     .logo-icon { margin-right: 10px; font-size: 2rem; }
-    .nav-links { display: flex; list-style: none; }
+    .nav-links { display: flex; list-style: none; align-items: center; }
     .nav-links li { margin-left: 2rem; }
     .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease; }
     .nav-links a:hover { opacity: 0.8; }
     .mobile-menu-btn { display: none; }
 
+    /* Dark Mode Toggle */
+    .theme-toggle {
+        background: rgba(255,255,255,0.2);
+        border: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        cursor: pointer;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+    }
+    .theme-toggle:hover {
+        background: rgba(255,255,255,0.3);
+        transform: scale(1.1);
+    }
+
     /* Hero Section */
-    .hero { height: 80vh; display: flex; align-items: center; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('coding.jpg') no-repeat center center/cover; color: white; text-align: center; }
-    .hero-content { max-width: 800px; margin: 0 auto; }
-    .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-    .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+    .hero { height: 80vh; display: flex; align-items: center; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('coding.jpg') no-repeat center center/cover; color: white; text-align: center; position: relative; overflow: hidden; }
+    .hero-content { max-width: 800px; margin: 0 auto; z-index: 2; position: relative; }
+    .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; animation: fadeInUp 1s ease; }
+    .hero p { font-size: 1.2rem; margin-bottom: 2rem; animation: fadeInUp 1.2s ease; }
     .btn { display: inline-block; padding: 0.8rem 2rem; background-color: var(--primary); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; transition: all 0.3s ease; border: none; cursor: pointer; margin: 0.5rem; }
     .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     .btn-secondary { background-color: transparent; border: 2px solid white; }
 
+    /* Floating Particles Background */
+    .particles {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+    .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: rgba(255,255,255,0.5);
+        border-radius: 50%;
+        animation: float 15s infinite;
+    }
+    @keyframes float {
+        0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+    }
+
+    /* Live Stats Banner */
+    .live-stats {
+        background: linear-gradient(135deg, rgba(66,133,244,0.1), rgba(52,168,83,0.1));
+        padding: 2rem;
+        text-align: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+        border-radius: 15px;
+    }
+    .stat-item {
+        animation: countUp 2s ease;
+    }
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--primary);
+        display: block;
+    }
+    .stat-label {
+        color: var(--text-main);
+        font-size: 1rem;
+        opacity: 0.8;
+    }
+
     /* Courses Section */
     .courses { padding: 5rem 0; }
     .section-title { text-align: center; margin-bottom: 3rem; font-size: 2.5rem; color: var(--primary); }
+    
+    /* Search Bar */
+    .search-bar {
+        max-width: 600px;
+        margin: 0 auto 3rem;
+        position: relative;
+    }
+    .search-bar input {
+        width: 100%;
+        padding: 1rem 3rem 1rem 1.5rem;
+        border: 2px solid var(--primary);
+        border-radius: 50px;
+        font-size: 1rem;
+        outline: none;
+        background: var(--bg-card);
+        color: var(--text-main);
+        transition: all 0.3s ease;
+    }
+    .search-bar input:focus {
+        box-shadow: 0 0 20px rgba(66,133,244,0.3);
+    }
+    .search-bar i {
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary);
+        font-size: 1.2rem;
+    }
+
     .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 2rem; }
-    .course-card { background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+    .course-card { background-color: var(--bg-card, white); border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s ease; position: relative; }
     .course-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
     .course-img { height: 200px; overflow: hidden; }
     .course-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
@@ -55,37 +188,338 @@
     .course-info { padding: 1.5rem; }
     .course-info h3 { margin-bottom: 0.5rem; }
     .course-info .language { display: inline-block; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.8rem; margin-bottom: 1rem; }
+    .course-meta { display: flex; justify-content: space-between; margin-top: 1rem; font-size: 0.9rem; color: #666; }
+
+    /* Progress Badge */
+    .progress-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(52,168,83,0.9);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    /* Course Link */
+    .course-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+        padding: 5rem 0;
+        background: linear-gradient(135deg, rgba(66,133,244,0.05), rgba(52,168,83,0.05));
+    }
+    .testimonials-slider {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+    }
+    .testimonial {
+        background: var(--bg-card);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        text-align: center;
+        display: none;
+    }
+    .testimonial.active {
+        display: block;
+        animation: slideIn 0.5s ease;
+    }
+    .testimonial-text {
+        font-style: italic;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: var(--text-main);
+    }
+    .testimonial-author {
+        font-weight: 600;
+        color: var(--primary);
+    }
+    .testimonial-role {
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+
+    /* Pricing Section */
+    .pricing {
+        padding: 5rem 0;
+    }
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    .pricing-card {
+        background: var(--bg-card);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    .pricing-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+    .pricing-card.featured {
+        border: 3px solid var(--primary);
+    }
+    .pricing-badge {
+        position: absolute;
+        top: 20px;
+        right: -35px;
+        background: var(--accent);
+        color: var(--dark);
+        padding: 0.3rem 3rem;
+        transform: rotate(45deg);
+        font-weight: 600;
+        font-size: 0.8rem;
+    }
+    .pricing-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+    }
+    .pricing-price {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-bottom: 0.5rem;
+    }
+    .pricing-period {
+        font-size: 1rem;
+        opacity: 0.7;
+        margin-bottom: 2rem;
+    }
+    .pricing-features {
+        list-style: none;
+        margin-bottom: 2rem;
+        text-align: left;
+    }
+    .pricing-features li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    .pricing-features i {
+        color: var(--secondary);
+        margin-right: 0.5rem;
+    }
+
+    /* Newsletter Section */
+    .newsletter {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        padding: 4rem 2rem;
+        margin: 5rem 0;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
+    }
+    .newsletter h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    .newsletter p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+    .newsletter-form {
+        max-width: 500px;
+        margin: 0 auto;
+        display: flex;
+        gap: 1rem;
+    }
+    .newsletter-form input {
+        flex: 1;
+        padding: 1rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        outline: none;
+    }
+    .newsletter-form button {
+        padding: 1rem 2rem;
+        background: white;
+        color: var(--primary);
+        border: none;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .newsletter-form button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
 
     /* Syllabus Tabs */
     .language-tabs { margin: 3rem 0; }
     .tab-buttons { display: flex; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
-    .tab-btn { padding: 0.8rem 2rem; background: none; border: none; border-bottom: 3px solid transparent; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
-    .tab-btn.active { border-bottom: 3px solid var(--primary); color: var(--primary); }
+    .tab-btn { padding: 0.8rem 2rem; background: var(--bg-card); border: 2px solid var(--primary); color: var(--text-main); border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .tab-btn.active { background: var(--primary); color: white; transform: scale(1.05); }
+    .tab-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
     .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .syllabus-item { background-color: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-    .syllabus-item h4 { margin-bottom: 0.5rem; }
-    .syllabus-item p { color: #666; }
+    .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+    .syllabus-item { background-color: var(--bg-card); padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); }
+    .syllabus-item h4 { margin-bottom: 0.5rem; color: var(--primary); }
+    .syllabus-item p { color: var(--text-main); opacity: 0.8; }
 
     /* Problems Section */
     .problem-solution { padding: 5rem 0; }
-    .problem-card { background-color: white; border-radius: 10px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-    .problem-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .problem-card { background-color: var(--bg-card); border-radius: 10px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .problem-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem; }
+    .problem-header h3 { color: var(--text-main); }
     .difficulty { padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600; }
     .easy { background-color: #e6f7ee; color: #34a853; }
     .medium { background-color: #fff8e6; color: #fbbc05; }
     .hard { background-color: #fce8e6; color: #ea4335; }
-    .solution { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .problem-card p { color: var(--text-main); opacity: 0.9; margin-bottom: 1rem; }
+    .solution { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; margin-top: 1rem; }
     .solution.show { max-height: 1000px; }
-    .toggle-solution { background: none; border: none; color: var(--primary); font-weight: 600; cursor: pointer; display: flex; align-items: center; }
-    .toggle-solution:hover { text-decoration: underline; }
+    .solution pre { background: #282c34; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+    .toggle-solution { background: var(--primary); color: white; border: none; padding: 0.6rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; }
+    .toggle-solution:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(66,133,244,0.3); }
+
+    /* Code Playground */
+    .code-playground {
+        padding: 5rem 0;
+        background: var(--bg-main);
+    }
+    .playground-container {
+        background: var(--bg-card);
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .playground-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .language-select {
+        padding: 0.6rem 1.2rem;
+        border: 2px solid var(--primary);
+        border-radius: 50px;
+        background: var(--bg-card);
+        color: var(--text-main);
+        font-weight: 600;
+        cursor: pointer;
+        outline: none;
+    }
+    .code-editor {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    .editor-panel {
+        background: #282c34;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .editor-header {
+        background: #21252b;
+        padding: 0.8rem 1rem;
+        color: white;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .code-input {
+        width: 100%;
+        height: 300px;
+        padding: 1rem;
+        background: #282c34;
+        color: #abb2bf;
+        border: none;
+        outline: none;
+        font-family: 'Courier New', monospace;
+        font-size: 0.95rem;
+        resize: vertical;
+    }
+    .code-output {
+        padding: 1rem;
+        background: #282c34;
+        color: #98c379;
+        font-family: 'Courier New', monospace;
+        font-size: 0.95rem;
+        min-height: 300px;
+        overflow-x: auto;
+    }
+    .run-btn {
+        background: var(--secondary);
+        color: white;
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .run-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(52,168,83,0.3);
+    }
+
+    /* Analytics Section */
+    .analytics {
+        padding: 5rem 0;
+        background: var(--bg-main);
+    }
+    .chart-container {
+        background: var(--bg-card);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .chart-container canvas {
+        max-height: 400px;
+    }
 
     /* Documentation Section */
-    .documentation { padding: 5rem 0; background-color: #f1f1f1; }
-    .doc-container { background-color: white; border-radius: 10px; padding: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-    .doc-nav-list { list-style: none; display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; }
-    .doc-nav-item a { color: var(--dark); text-decoration: none; padding: 0.5rem 1rem; border-radius: 5px; transition: all 0.3s ease; }
-    .doc-nav-item a:hover, .doc-nav-item.active a { background-color: var(--primary); color: white; }
+    .documentation { padding: 5rem 0; background-color: var(--bg-main); }
+    .doc-container { background-color: var(--bg-card); border-radius: 10px; padding: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .doc-nav-list { list-style: none; display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; justify-content: center; }
+    .doc-nav-item a { 
+        color: white; 
+        text-decoration: none; 
+        padding: 1rem 2rem; 
+        border-radius: 10px; 
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .doc-nav-item a:hover { 
+        transform: translateY(-5px); 
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    .doc-python { background: linear-gradient(135deg, #306998, #3776ab); }
+    .doc-java { background: linear-gradient(135deg, #5382a1, #f89820); }
+    .doc-js { background: linear-gradient(135deg, #f0db4f, #323330); color: #000 !important; }
+    .doc-cpp { background: linear-gradient(135deg, #00599C, #004482); }
+    .doc-rust { background: linear-gradient(135deg, #dea584, #ce6f3e); }
+    .doc-sql { background: linear-gradient(135deg, #e38c00, #cc7a00); }
 
     /* Footer */
     footer { background-color: var(--dark); color: white; padding: 3rem 0 1rem; }
@@ -97,24 +531,251 @@
     .footer-links a:hover { color: white; padding-left: 5px; }
     .social-links { display: flex; gap: 1.5rem; margin-top: 1rem; }
     .social-links a { color: white; font-size: 1.5rem; transition: all 0.3s ease; }
-    .social-links a:hover { color: var(--accent); }
+    .social-links a:hover { color: var(--accent); transform: scale(1.2); }
     .copyright { text-align: center; padding-top: 2rem; border-top: 1px solid #444; color: #ddd; font-size: 0.9rem; }
+
+    /* Fixed Live Support Chat (Right Side) */
+    .live-support-chat {
+        position: fixed;
+        right: 20px;
+        top: 100px;
+        width: 320px;
+        max-height: calc(100vh - 120px);
+        background: var(--bg-card);
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    .live-support-chat.minimized {
+        height: 60px;
+        max-height: 60px;
+    }
+    .support-chat-header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+    .support-chat-title {
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .support-status {
+        width: 8px;
+        height: 8px;
+        background: #4bc267;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    .minimize-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    .minimize-btn:hover {
+        transform: scale(1.2);
+    }
+    .support-chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem;
+        background: var(--bg-main);
+        max-height: 400px;
+    }
+    .chat-message {
+        margin-bottom: 1rem;
+        animation: slideIn 0.3s ease;
+    }
+    .chat-message.support {
+        text-align: left;
+    }
+    .chat-message.user {
+        text-align: right;
+    }
+    .message-bubble {
+        display: inline-block;
+        padding: 0.8rem 1rem;
+        border-radius: 15px;
+        max-width: 80%;
+        word-wrap: break-word;
+    }
+    .support .message-bubble {
+        background: var(--primary);
+        color: white;
+        border-bottom-left-radius: 5px;
+    }
+    .user .message-bubble {
+        background: var(--bg-card);
+        color: var(--text-main);
+        border-bottom-right-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .message-time {
+        font-size: 0.7rem;
+        opacity: 0.6;
+        margin-top: 0.3rem;
+    }
+    .support-chat-input {
+        padding: 1rem;
+        background: var(--bg-card);
+        border-top: 1px solid rgba(0,0,0,0.1);
+        display: flex;
+        gap: 0.5rem;
+    }
+    .support-chat-input input {
+        flex: 1;
+        padding: 0.8rem;
+        border: 2px solid var(--primary);
+        border-radius: 50px;
+        outline: none;
+        background: var(--bg-main);
+        color: var(--text-main);
+    }
+    .support-chat-input button {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .support-chat-input button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(66,133,244,0.3);
+    }
+
+    /* Typing Indicator */
+    .typing-indicator {
+        display: none;
+        padding: 0.8rem 1rem;
+        background: var(--primary);
+        color: white;
+        border-radius: 15px;
+        border-bottom-left-radius: 5px;
+        width: fit-content;
+    }
+    .typing-indicator.show {
+        display: inline-block;
+    }
+    .typing-dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+        margin: 0 2px;
+        animation: typingBounce 1.4s infinite;
+    }
+    .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+    @keyframes typingBounce {
+        0%, 60%, 100% { transform: translateY(0); }
+        30% { transform: translateY(-10px); }
+    }
+
+    /* Social Proof Notification */
+    .social-proof {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: var(--bg-card);
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 9998;
+        transform: translateX(-400px);
+        transition: transform 0.5s ease;
+    }
+    .social-proof.show {
+        transform: translateX(0);
+    }
+    .social-proof-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        display: grid;
+        place-items: center;
+        color: white;
+        font-weight: 600;
+    }
+    .social-proof-text {
+        flex: 1;
+    }
+    .social-proof-name {
+        font-weight: 600;
+        color: var(--text-main);
+    }
+    .social-proof-action {
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
 
     /* Fade-in Animation */
     .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes countUp {
+        from { opacity: 0; transform: scale(0.5); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
     /* Smooth scroll */
     html { scroll-behavior: smooth; }
 
+    /* Responsive */
     @media (max-width: 768px) {
         .hero h1 { font-size: 2.5rem; }
         .nav-links { display: none; }
         .mobile-menu-btn { display: block; font-size: 1.5rem; background: none; border: none; color: white; cursor: pointer; }
+        .code-editor { grid-template-columns: 1fr; }
+        .live-support-chat { width: 90%; right: 5%; }
+        .social-proof { left: 5%; right: 5%; }
+        .newsletter-form { flex-direction: column; }
     }
 </style>
 </head>
-<body>
+<body data-theme="light">
+
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- Header -->
 <header>
@@ -125,21 +786,57 @@
                 <li><a href="#courses">Courses</a></li>
                 <li><a href="#syllabus">Syllabus</a></li>
                 <li><a href="#problems">Problems</a></li>
+                <li><a href="#playground">Code</a></li>
                 <li><a href="#docs">Documentation</a></li>
+                <li><button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button></li>
                 <li><a href="auth.html" class="btn btn-secondary">Login</a></li>
             </ul>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
         </nav>
     </div>
 </header>
 
 <!-- Hero Section -->
-<section class="hero fade-in">
-    <div class="hero-content">
-        <h1>Master Python, Java, JavaScript, C++, Rust & SQL</h1>
-        <p>Comprehensive courses with hands-on exercises, real-world projects, and expert guidance to help you become a proficient developer</p>
+<section class="hero fade-in" style="background: none; position: relative; height: 80vh; color: white; overflow: hidden;">
+    <!-- Transparent background image (below content) -->
+    <img src="coding.jpg" alt="Coding background" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 0.8; filter: brightness(0.9); z-index: 0; pointer-events: none;">
+
+    <!-- Floating particles positioned above the image but below text -->
+    <div class="particles" id="particles" style="z-index:1;"></div>
+
+    <!-- Hero content sits above the image -->
+    <div class="hero-content" style="z-index:2; position: relative; padding: 2rem;">
+        <h1 style="text-shadow: 0 6px 20px rgba(0,0,0,0.6);">Master Python, Java, JavaScript, C++, Rust & SQL</h1>
+        <p style="text-shadow: 0 4px 12px rgba(0,0,0,0.5); max-width:800px; margin: 1rem auto 2rem;">
+            Comprehensive courses with hands-on exercises, real-world projects, and expert guidance to help you become a proficient developer
+        </p>
         <div>
             <a href="#courses" class="btn">Explore Courses</a>
             <a href="#problems" class="btn btn-secondary">Practice Problems</a>
+        </div>
+    </div>
+</section>
+
+<!-- Live Stats Banner -->
+<section class="live-stats fade-in">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+            <div class="stat-item">
+                <span class="stat-number" id="studentsCount">0</span>
+                <span class="stat-label">Active Students</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="coursesCount">0</span>
+                <span class="stat-label">Courses Available</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="instructorsCount">0</span>
+                <span class="stat-label">Expert Instructors</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" id="completionRate">0%</span>
+                <span class="stat-label">Completion Rate</span>
+            </div>
         </div>
     </div>
 </section>
@@ -148,12 +845,20 @@
 <section id="courses" class="courses fade-in">
   <div class="container">
     <h2 class="section-title">Our Courses</h2>
-    <div class="courses-grid">
+    
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="courseSearch" placeholder="Search courses by name or language...">
+        <i class="fas fa-search"></i>
+    </div>
+
+    <div class="courses-grid" id="coursesGrid">
 
       <!-- Python -->
       <a href="python-course.html" class="course-link">
-        <div class="course-card">
-          <div class="course-img"><img src="python2.jpg" alt="Python Course"></div>
+        <div class="course-card" data-course="python">
+          <div class="progress-badge">New</div>
+          <div class="course-img"><img src="python2.jpg" alt="Python Course" loading="lazy"></div>
           <div class="course-info">
             <span class="language" style="background-color:#3776ab;color:white;">Python</span>
             <h3>Python Mastery</h3>
@@ -167,8 +872,8 @@
 
       <!-- Java -->
       <a href="java-course.html" class="course-link">
-        <div class="course-card">
-          <div class="course-img"><img src="java.jpg" alt="Java Course"></div>
+        <div class="course-card" data-course="java">
+          <div class="course-img"><img src="java.jpg" alt="Java Course" loading="lazy"></div>
           <div class="course-info">
             <span class="language" style="background-color:#5382a1;color:white;">Java</span>
             <h3>Java Fundamentals</h3>
@@ -182,10 +887,11 @@
 
       <!-- JavaScript -->
       <a href="javascript-course.html" class="course-link">
-        <div class="course-card">
-          <div class="course-img"><img src="javascript2.jpg" alt="JavaScript Course"></div>
+        <div class="course-card" data-course="javascript">
+          <div class="progress-badge">Popular</div>
+          <div class="course-img"><img src="javascript2.jpg" alt="JavaScript Course" loading="lazy"></div>
           <div class="course-info">
-            <span class="language" style="background-color:#f0db4f;color:var(--dark);">JavaScript</span>
+            <span class="language" style="background-color:#f0db4f;color:#202124;">JavaScript</span>
             <h3>Modern JS Development</h3>
             <p>Learn JS, ES6+, frameworks, and build interactive web apps.</p>
             <div class="course-meta">
@@ -197,8 +903,8 @@
 
       <!-- C++ -->
       <a href="cpp-course.html" class="course-link">
-        <div class="course-card">
-          <div class="course-img"><img src="c++ optimization.png" alt="C++ Course"></div>
+        <div class="course-card" data-course="cpp">
+          <div class="course-img"><img src="c++ optimization.png" alt="C++ Course" loading="lazy"></div>
           <div class="course-info">
             <span class="language" style="background-color:#00599C;color:white;">C++</span>
             <h3>Complete C++ Programming</h3>
@@ -212,8 +918,8 @@
 
       <!-- Rust -->
       <a href="rust-course.html" class="course-link">
-        <div class="course-card">
-          <div class="course-img"><img src="rust.webp" alt="Rust Course"></div>
+        <div class="course-card" data-course="rust">
+          <div class="course-img"><img src="rust.webp" alt="Rust Course" loading="lazy"></div>
           <div class="course-info">
             <span class="language" style="background-color:#DEA584;color:white;">Rust</span>
             <h3>Rust Systems Programming</h3>
@@ -227,8 +933,8 @@
 
       <!-- SQL -->
       <a href="sql-course.html" class="course-link">
-        <div class="course-card">
-          <div class="course-img"><img src="SQL-Server-1-1.jpg" alt="SQL Course"></div>
+        <div class="course-card" data-course="sql">
+          <div class="course-img"><img src="SQL-Server-1-1.jpg" alt="SQL Course" loading="lazy"></div>
           <div class="course-info">
             <span class="language" style="background-color:#e38c00;color:white;">SQL</span>
             <h3>SQL & Database Management</h3>
@@ -243,47 +949,79 @@
     </div>
   </div>
 </section>
+
+<!-- Testimonials Section -->
+<section class="testimonials fade-in">
+    <div class="container">
+        <h2 class="section-title">What Our Students Say</h2>
+        <div class="testimonials-slider">
+            <div class="testimonial active">
+                <p class="testimonial-text">"Edumart transformed my coding skills! The Python course was incredibly detailed and the instructors were always available to help."</p>
+                <p class="testimonial-author">Sarah Johnson</p>
+                <p class="testimonial-role">Software Engineer at Google</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">"Best investment I made in my career. The JavaScript course helped me land my dream job as a full-stack developer."</p>
+                <p class="testimonial-author">Michael Chen</p>
+                <p class="testimonial-role">Full-Stack Developer at Amazon</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">"The hands-on projects and practice problems made learning C++ so much easier. Highly recommend!"</p>
+                <p class="testimonial-author">Emily Rodriguez</p>
+                <p class="testimonial-role">Systems Programmer at Microsoft</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Syllabus Section -->
 <section id="syllabus" class="language-tabs fade-in">
     <div class="container">
         <h2 class="section-title">Course Syllabus</h2>
         <div class="tab-buttons">
-            <button class="tab-btn active" data-target="python">Python</button>
-            <button class="tab-btn" data-target="java">Java</button>
-            <button class="tab-btn" data-target="javascript">JavaScript</button>
-            <button class="tab-btn" data-target="cpp">C++</button>
-            <button class="tab-btn" data-target="rust">Rust</button>
-            <button class="tab-btn" data-target="sql">SQL</button>
+            <button class="tab-btn active" data-target="python"><i class="fab fa-python"></i> Python</button>
+            <button class="tab-btn" data-target="java"><i class="fab fa-java"></i> Java</button>
+            <button class="tab-btn" data-target="javascript"><i class="fab fa-js"></i> JavaScript</button>
+            <button class="tab-btn" data-target="cpp"><i class="fas fa-code"></i> C++</button>
+            <button class="tab-btn" data-target="rust"><i class="fas fa-cog"></i> Rust</button>
+            <button class="tab-btn" data-target="sql"><i class="fas fa-database"></i> SQL</button>
         </div>
         <div class="tab-content active" id="python">
-            <div class="syllabus-item"><h4>Introduction</h4><p>Python basics, syntax, and environment setup.</p></div>
-            <div class="syllabus-item"><h4>Data Types & Control Flow</h4><p>Variables, loops, conditionals, lists, dictionaries.</p></div>
-            <div class="syllabus-item"><h4>Functions & Modules</h4><p>Creating functions, modules, and importing libraries.</p></div>
+            <div class="syllabus-item"><h4>Module 1: Introduction</h4><p>Python basics, syntax, and environment setup. Learn variables, data types, and your first program.</p></div>
+            <div class="syllabus-item"><h4>Module 2: Data Types & Control Flow</h4><p>Variables, loops, conditionals, lists, dictionaries, and advanced data structures.</p></div>
+            <div class="syllabus-item"><h4>Module 3: Functions & Modules</h4><p>Creating functions, modules, importing libraries, and understanding scope.</p></div>
+            <div class="syllabus-item"><h4>Module 4: OOP in Python</h4><p>Classes, objects, inheritance, polymorphism, and encapsulation principles.</p></div>
+            <div class="syllabus-item"><h4>Module 5: Advanced Topics</h4><p>Decorators, generators, context managers, and asynchronous programming.</p></div>
         </div>
         <div class="tab-content" id="java">
-            <div class="syllabus-item"><h4>Introduction</h4><p>Java syntax, variables, and environment setup.</p></div>
-            <div class="syllabus-item"><h4>OOP Concepts</h4><p>Classes, objects, inheritance, polymorphism, encapsulation.</p></div>
-            <div class="syllabus-item"><h4>Collections & Exceptions</h4><p>Lists, Maps, Sets, and exception handling.</p></div>
+            <div class="syllabus-item"><h4>Module 1: Introduction</h4><p>Java syntax, variables, environment setup, and understanding JVM.</p></div>
+            <div class="syllabus-item"><h4>Module 2: OOP Concepts</h4><p>Classes, objects, inheritance, polymorphism, encapsulation, and abstraction.</p></div>
+            <div class="syllabus-item"><h4>Module 3: Collections & Exceptions</h4><p>Lists, Maps, Sets, Streams, and comprehensive exception handling.</p></div>
+            <div class="syllabus-item"><h4>Module 4: Advanced Java</h4><p>Multithreading, concurrency, lambdas, and functional programming.</p></div>
         </div>
         <div class="tab-content" id="javascript">
-            <div class="syllabus-item"><h4>Basics</h4><p>JavaScript syntax, variables, and types.</p></div>
-            <div class="syllabus-item"><h4>DOM & Events</h4><p>Document object model, event handling, and interactivity.</p></div>
-            <div class="syllabus-item"><h4>Advanced JS</h4><p>ES6+, asynchronous programming, fetch API.</p></div>
+            <div class="syllabus-item"><h4>Module 1: Basics</h4><p>JavaScript syntax, variables, types, and understanding the browser console.</p></div>
+            <div class="syllabus-item"><h4>Module 2: DOM & Events</h4><p>Document object model manipulation, event handling, and creating interactivity.</p></div>
+            <div class="syllabus-item"><h4>Module 3: Advanced JS</h4><p>ES6+ features, arrow functions, promises, async/await, and fetch API.</p></div>
+            <div class="syllabus-item"><h4>Module 4: Frameworks</h4><p>Introduction to React, Vue, and Node.js for full-stack development.</p></div>
         </div>
         <div class="tab-content" id="cpp">
-            <div class="syllabus-item"><h4>Introduction</h4><p>C++ syntax, variables, and compilation process.</p></div>
-            <div class="syllabus-item"><h4>OOP</h4><p>Classes, inheritance, polymorphism, and encapsulation.</p></div>
-            <div class="syllabus-item"><h4>STL</h4><p>Vectors, sets, maps, iterators, and algorithms.</p></div>
+            <div class="syllabus-item"><h4>Module 1: Introduction</h4><p>C++ syntax, variables, compilation process, and memory management basics.</p></div>
+            <div class="syllabus-item"><h4>Module 2: OOP</h4><p>Classes, inheritance, polymorphism, encapsulation, and virtual functions.</p></div>
+            <div class="syllabus-item"><h4>Module 3: STL</h4><p>Vectors, sets, maps, iterators, algorithms, and template programming.</p></div>
+            <div class="syllabus-item"><h4>Module 4: Advanced C++</h4><p>Smart pointers, move semantics, RAII, and modern C++ features.</p></div>
         </div>
         <div class="tab-content" id="rust">
-            <div class="syllabus-item"><h4>Basics</h4><p>Rust syntax, ownership, borrowing, and variables.</p></div>
-            <div class="syllabus-item"><h4>Functions & Modules</h4><p>Functions, structs, enums, and modules.</p></div>
-            <div class="syllabus-item"><h4>Advanced Rust</h4><p>Memory safety, concurrency, and error handling.</p></div>
+            <div class="syllabus-item"><h4>Module 1: Basics</h4><p>Rust syntax, ownership, borrowing, variables, and the type system.</p></div>
+            <div class="syllabus-item"><h4>Module 2: Functions & Modules</h4><p>Functions, structs, enums, pattern matching, and module organization.</p></div>
+            <div class="syllabus-item"><h4>Module 3: Advanced Rust</h4><p>Memory safety, lifetimes, concurrency, and error handling with Result.</p></div>
+            <div class="syllabus-item"><h4>Module 4: Real-world Projects</h4><p>Building CLI tools, web servers, and systems programming projects.</p></div>
         </div>
         <div class="tab-content" id="sql">
-            <div class="syllabus-item"><h4>Introduction</h4><p>SQL basics, database design, tables, and queries.</p></div>
-            <div class="syllabus-item"><h4>Advanced Queries</h4><p>Joins, subqueries, indexing, and transactions.</p></div>
-            <div class="syllabus-item"><h4>Database Management</h4><p>Backup, restore, normalization, and optimization.</p></div>
+            <div class="syllabus-item"><h4>Module 1: Introduction</h4><p>SQL basics, database design principles, tables, and basic queries.</p></div>
+            <div class="syllabus-item"><h4>Module 2: Advanced Queries</h4><p>Joins, subqueries, views, indexing, and query optimization.</p></div>
+            <div class="syllabus-item"><h4>Module 3: Database Management</h4><p>Backup, restore, normalization, transactions, and ACID properties.</p></div>
+            <div class="syllabus-item"><h4>Module 4: Real-world Applications</h4><p>Building databases for applications, stored procedures, and triggers.</p></div>
         </div>
     </div>
 </section>
@@ -295,262 +1033,300 @@
         <!-- Python Problem -->
         <div class="problem-card">
             <div class="problem-header">
-                <h3>Python: Reverse a List</h3>
+                <h3><i class="fab fa-python"></i> Python: Reverse a List</h3>
                 <span class="difficulty easy">Easy</span>
             </div>
             <p>Write a Python function that reverses a list without using the built-in reverse() method.</p>
-            <button class="toggle-solution" onclick="toggleSolution(1)">Show Solution</button>
-            <div class="solution" id="solution1"><pre><code>def reverse_list(lst):
-    return lst[::-1]</code></pre></div>
+            <button class="toggle-solution" onclick="toggleSolution(1)">
+                <i class="fas fa-code"></i> Show Solution
+            </button>
+            <div class="solution" id="solution1">
+                <pre><code class="language-python">def reverse_list(lst):
+    return lst[::-1]
+
+# Alternative solution
+def reverse_list_manual(lst):
+    return [lst[i] for i in range(len(lst)-1, -1, -1)]</code></pre>
+            </div>
         </div>
         <!-- Java Problem -->
         <div class="problem-card">
             <div class="problem-header">
-                <h3>Java: Two Sum</h3>
+                <h3><i class="fab fa-java"></i> Java: Two Sum</h3>
                 <span class="difficulty medium">Medium</span>
             </div>
             <p>Given an array of integers, return indices of the two numbers such that they add up to a target.</p>
-            <button class="toggle-solution" onclick="toggleSolution(2)">Show Solution</button>
-            <div class="solution" id="solution2"><pre><code>public int[] twoSum(int[] nums, int target) {
-    Map<Integer,Integer> map = new HashMap<>();
-    for(int i=0;i<nums.length;i++){
-        int comp = target - nums[i];
-        if(map.containsKey(comp)) return new int[]{map.get(comp), i};
+            <button class="toggle-solution" onclick="toggleSolution(2)">
+                <i class="fas fa-code"></i> Show Solution
+            </button>
+            <div class="solution" id="solution2">
+                <pre><code class="language-java">public int[] twoSum(int[] nums, int target) {
+    Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;();
+    for(int i=0; i&lt;nums.length; i++){
+        int complement = target - nums[i];
+        if(map.containsKey(complement)) {
+            return new int[]{map.get(complement), i};
+        }
         map.put(nums[i], i);
     }
     return new int[]{};
-}</code></pre></div>
+}</code></pre>
+            </div>
         </div>
         <!-- JavaScript Problem -->
         <div class="problem-card">
             <div class="problem-header">
-                <h3>JavaScript: Factorial</h3>
+                <h3><i class="fab fa-js"></i> JavaScript: Factorial</h3>
                 <span class="difficulty easy">Easy</span>
             </div>
             <p>Write a JS function to calculate factorial of a number recursively.</p>
-            <button class="toggle-solution" onclick="toggleSolution(3)">Show Solution</button>
-            <div class="solution" id="solution3"><pre><code>function factorial(n){
-    if(n===0 || n===1) return 1;
-    return n * factorial(n-1);
-}</code></pre></div>
+            <button class="toggle-solution" onclick="toggleSolution(3)">
+                <i class="fas fa-code"></i> Show Solution
+            </button>
+            <div class="solution" id="solution3">
+                <pre><code class="language-javascript">function factorial(n){
+    if(n === 0 || n === 1) return 1;
+    return n * factorial(n - 1);
+}
+
+// Iterative solution
+function factorialIterative(n) {
+    let result = 1;
+    for(let i = 2; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}</code></pre>
+            </div>
         </div>
         <!-- C++ Problem -->
         <div class="problem-card">
             <div class="problem-header">
-                <h3>C++: Palindrome Check</h3>
+                <h3><i class="fas fa-code"></i> C++: Palindrome Check</h3>
                 <span class="difficulty medium">Medium</span>
             </div>
             <p>Check if a given string is a palindrome in C++ without using extra space.</p>
-            <button class="toggle-solution" onclick="toggleSolution(4)">Show Solution</button>
-            <div class="solution" id="solution4"><pre><code>#include &lt;string&gt;
-bool isPalindrome(const std::string &s){
-    int l=0, r=s.size()-1;
-    while(l&lt;r){
-        if(s[l++] != s[r--]) return false;
+            <button class="toggle-solution" onclick="toggleSolution(4)">
+                <i class="fas fa-code"></i> Show Solution
+            </button>
+            <div class="solution" id="solution4">
+                <pre><code class="language-cpp">#include &lt;string&gt;
+bool isPalindrome(const std::string &amp;s){
+    int left = 0, right = s.size() - 1;
+    while(left &lt; right){
+        if(s[left++] != s[right--]) {
+            return false;
+        }
     }
     return true;
-}</code></pre></div>
+}</code></pre>
+            </div>
         </div>
         <!-- Rust Problem -->
         <div class="problem-card">
             <div class="problem-header">
-                <h3>Rust: Fibonacci</h3>
+                <h3><i class="fas fa-cog"></i> Rust: Fibonacci</h3>
                 <span class="difficulty medium">Medium</span>
             </div>
             <p>Write a function in Rust to return nth Fibonacci number using recursion.</p>
-            <button class="toggle-solution" onclick="toggleSolution(5)">Show Solution</button>
-            <div class="solution" id="solution5"><pre><code>fn fib(n:u32) -&gt; u32 {
-    if n==0 || n==1 { return n; }
-    fib(n-1) + fib(n-2)
-}</code></pre></div>
+            <button class="toggle-solution" onclick="toggleSolution(5)">
+                <i class="fas fa-code"></i> Show Solution
+            </button>
+            <div class="solution" id="solution5">
+                <pre><code class="language-rust">fn fib(n: u32) -&gt; u32 {
+    if n == 0 || n == 1 { 
+        return n; 
+    }
+    fib(n - 1) + fib(n - 2)
+}
+
+// Optimized iterative solution
+fn fib_iterative(n: u32) -&gt; u32 {
+    let (mut a, mut b) = (0, 1);
+    for _ in 0..n {
+        let temp = a;
+        a = b;
+        b = temp + b;
+    }
+    a
+}</code></pre>
+            </div>
         </div>
         <!-- SQL Problem -->
         <div class="problem-card">
             <div class="problem-header">
-                <h3>SQL: Top 3 Salaries</h3>
+                <h3><i class="fas fa-database"></i> SQL: Top 3 Salaries</h3>
                 <span class="difficulty hard">Hard</span>
             </div>
             <p>Write a query to find top 3 highest salaries from Employee table.</p>
-            <button class="toggle-solution" onclick="toggleSolution(6)">Show Solution</button>
-            <div class="solution" id="solution6"><pre><code>SELECT * FROM Employee
+            <button class="toggle-solution" onclick="toggleSolution(6)">
+                <i class="fas fa-code"></i> Show Solution
+            </button>
+            <div class="solution" id="solution6">
+                <pre><code class="language-sql">SELECT * FROM Employee
 ORDER BY Salary DESC
-LIMIT 3;</code></pre></div>
+LIMIT 3;
+
+-- Alternative with DISTINCT to avoid duplicates
+SELECT DISTINCT Salary FROM Employee
+ORDER BY Salary DESC
+LIMIT 3;</code></pre>
+            </div>
         </div>
+    </div>
+</section>
+
+<!-- Code Playground Section -->
+<section id="playground" class="code-playground fade-in">
+    <div class="container">
+        <h2 class="section-title">Interactive Code Playground</h2>
+        <div class="playground-container">
+            <div class="playground-header">
+                <div>
+                    <label for="playgroundLanguage" style="margin-right: 1rem; font-weight: 600;">Select Language:</label>
+                    <select id="playgroundLanguage" class="language-select">
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python (Simulation)</option>
+                        <option value="java">Java (Simulation)</option>
+                    </select>
+                </div>
+                <button class="run-btn" onclick="runCode()">
+                    <i class="fas fa-play"></i> Run Code
+                </button>
+            </div>
+            <div class="code-editor">
+                <div class="editor-panel">
+                    <div class="editor-header">
+                        <i class="fas fa-code"></i> Code Editor
+                    </div>
+                    <textarea id="codeInput" class="code-input" placeholder="Write your code here...">// Write your JavaScript code here
+console.log("Hello, Edumart!");
+
+function greet(name) {
+    return `Welcome to ${name}!`;
+}
+
+console.log(greet("Edumart"));</textarea>
+                </div>
+                <div class="editor-panel">
+                    <div class="editor-header">
+                        <i class="fas fa-terminal"></i> Output
+                    </div>
+                    <div id="codeOutput" class="code-output">// Output will appear here...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Analytics Section -->
+<section class="analytics fade-in">
+    <div class="container">
+        <h2 class="section-title">Learning Progress Analytics</h2>
+        <div class="chart-container">
+            <canvas id="progressChart"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="pricing fade-in">
+    <div class="container">
+        <h2 class="section-title">Choose Your Plan</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3 class="pricing-title">Free</h3>
+                <div class="pricing-price">$0</div>
+                <div class="pricing-period">per month</div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Access to 3 courses</li>
+                    <li><i class="fas fa-check"></i> Basic practice problems</li>
+                    <li><i class="fas fa-check"></i> Community support</li>
+                    <li><i class="fas fa-check"></i> Code playground</li>
+                </ul>
+                <button class="btn">Get Started</button>
+            </div>
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Popular</div>
+                <h3 class="pricing-title">Pro</h3>
+                <div class="pricing-price">$29</div>
+                <div class="pricing-period">per month</div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> All 6 courses</li>
+                    <li><i class="fas fa-check"></i> 500+ practice problems</li>
+                    <li><i class="fas fa-check"></i> Live support 24/7</li>
+                    <li><i class="fas fa-check"></i> Certificates</li>
+                    <li><i class="fas fa-check"></i> Career guidance</li>
+                </ul>
+                <button class="btn">Start Pro Trial</button>
+            </div>
+            <div class="pricing-card">
+                <h3 class="pricing-title">Enterprise</h3>
+                <div class="pricing-price">$99</div>
+                <div class="pricing-period">per month</div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Everything in Pro</li>
+                    <li><i class="fas fa-check"></i> Team management</li>
+                    <li><i class="fas fa-check"></i> Custom courses</li>
+                    <li><i class="fas fa-check"></i> Dedicated support</li>
+                    <li><i class="fas fa-check"></i> API access</li>
+                </ul>
+                <button class="btn">Contact Sales</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter fade-in">
+    <div class="container">
+        <h2>Stay Updated with Latest Courses</h2>
+        <p>Subscribe to our newsletter and get exclusive coding tips, new course updates, and special offers!</p>
+        <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit"><i class="fas fa-paper-plane"></i> Subscribe</button>
+        </form>
     </div>
 </section>
 
 <!-- Documentation Section -->
 <section id="docs" class="documentation fade-in">
     <div class="container">
-        <h2 class="section-title">Documentation</h2>
-
-        <style>
-            /* Crazy docs button styles (scoped to this section) */
-            .doc-crazy { padding: 2rem 1rem; background: linear-gradient(180deg,#f6f8ff 0,#eef6ff 100%); border-radius: 16px; box-shadow: 0 10px 30px rgba(20,30,60,.06); }
-            .doc-nav-list { list-style:none; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin:0 0 1.5rem 0; padding:0; }
-
-            .doc-btn {
-                --w: 220px;
-                position: relative;
-                display: inline-grid;
-                place-items: center;
-                width: var(--w);
-                padding: .85rem 1.2rem;
-                border-radius: 14px;
-                text-decoration: none;
-                color: white;
-                font-weight: 800;
-                letter-spacing: .6px;
-                transform: perspective(800px) rotateX(6deg) skew(-6deg);
-                transition: transform .45s cubic-bezier(.2,.9,.2,1), filter .35s;
-                z-index: 2;
-                overflow: hidden;
-                box-shadow:
-                    0 8px 30px rgba(66,133,244,0.12),
-                    inset 0 -2px 6px rgba(0,0,0,0.06);
-            }
-
-            /* animated colorful base gradients */
-            .doc-btn--python { background: linear-gradient(135deg,#306998 0%,#3776ab 50%,#7fb7ff 100%); }
-            .doc-btn--java   { background: linear-gradient(135deg,#5382a1 0%,#e76f51 60%,#ffb88c 100%); }
-            .doc-btn--js     { background: linear-gradient(135deg,#f0db4f 0%,#f7c948 60%,#ffd86b 100%); color:#222; }
-            .doc-btn--cpp    { background: linear-gradient(135deg,#00599C 0%,#143b66 70%); }
-            .doc-btn--rust   { background: linear-gradient(135deg,#dea584 0%,#b86e3e 60%); }
-            .doc-btn--sql    { background: linear-gradient(135deg,#e38c00 0%,#ffb04d 60%); }
-
-            /* neon halo (rotating conic gradient) */
-            .doc-btn::before {
-                content: "";
-                position: absolute;
-                inset: -2px;
-                border-radius: 16px;
-                background: conic-gradient(from 0deg, rgba(255,255,255,0.03), rgba(255,255,255,0) 10%, rgba(255,255,255,0.03));
-                filter: blur(12px) saturate(140%);
-                opacity: .9;
-                z-index: 1;
-                transition: opacity .3s;
-                animation: spinHalo 6s linear infinite;
-                mix-blend-mode: screen;
-            }
-
-            /* sparkles */
-            .doc-btn::after {
-                content: "";
-                position: absolute;
-                inset: 0;
-                border-radius: 14px;
-                background: radial-gradient(closest-side, rgba(255,255,255,0.12), rgba(255,255,255,0) 40%);
-                transform: translateY(-40%);
-                opacity: .6;
-                z-index: 3;
-                pointer-events: none;
-                animation: shimmer 3.2s linear infinite;
-            }
-
-            .doc-badge {
-                display:inline-grid;
-                place-items:center;
-                width:34px;height:34px;
-                border-radius:10px;
-                margin-right:.6rem;
-                font-size:1.05rem;
-                transform: skew(6deg) translateZ(20px);
-                box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-                background: rgba(255,255,255,0.12);
-                backdrop-filter: blur(4px);
-            }
-
-            .doc-label { display:flex; align-items:center; gap:.4rem; z-index:4; transform: skew(6deg); }
-
-            .doc-btn:hover {
-                transform: perspective(900px) rotateX(0deg) skew(0deg) translateY(-8px) scale(1.03);
-                filter: brightness(1.06) saturate(1.12) drop-shadow(0 18px 40px rgba(66,133,244,0.12));
-            }
-
-            .doc-btn:active { transform: translateY(-2px) scale(.995); }
-
-            /* micro-jitter on hover for crazy effect */
-            .doc-btn:hover { animation: microJitter .8s linear both; }
-
-            /* small animated accent ribbon */
-            .doc-ribbon {
-                position:absolute;
-                right:-30%;
-                top:-30%;
-                width:200%;
-                height:200%;
-                background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06));
-                transform: rotate(25deg);
-                z-index:0;
-                animation: floatRibbon 8s ease-in-out infinite;
-                pointer-events:none;
-            }
-
-            /* responsive smaller widths */
-            @media (max-width:600px){ .doc-btn{ --w:160px; } .doc-badge{width:28px;height:28px;font-size:.9rem;} }
-
-            /* animations */
-            @keyframes spinHalo { to { transform: rotate(360deg); } }
-            @keyframes shimmer { 0%{ transform: translateX(-120%);} 50%{ transform: translateX(120%);} 100%{ transform: translateX(-120%);} }
-            @keyframes microJitter {
-                0%{ transform: translateY(-8px) rotate(0.01deg) }
-                25%{ transform: translateY(-7px) rotate(-0.2deg) }
-                50%{ transform: translateY(-8px) rotate(0.15deg) }
-                75%{ transform: translateY(-6px) rotate(-0.12deg) }
-                100%{ transform: translateY(-8px) rotate(0.01deg) }
-            }
-            @keyframes floatRibbon {
-                0%,100% { transform: rotate(25deg) translateY(0px); }
-                50% { transform: rotate(25deg) translateY(8px); }
-            }
-
-            /* doc content box */
-            .doc-content { text-align:center; padding:1.25rem 1rem; border-radius:10px; background:linear-gradient(180deg,#ffffff,#fbfdff); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); color:#3b4250; font-weight:600; }
-        </style>
-
-        <div class="doc-crazy doc-container">
+        <h2 class="section-title">Official Documentation</h2>
+        <div class="doc-container">
+            <p style="text-align: center; margin-bottom: 2rem; opacity: 0.8;">Access comprehensive documentation for each programming language</p>
             <ul class="doc-nav-list">
-                <li>
-                    <a class="doc-btn doc-btn--python" href="https://docs.python.org/3/" target="_blank" rel="noopener">
-                        <span class="doc-ribbon" aria-hidden="true"></span>
-                        <span class="doc-label"><span class="doc-badge">Py</span>Python Docs</span>
+                <li class="doc-nav-item">
+                    <a class="doc-python" href="https://docs.python.org/3/" target="_blank" rel="noopener">
+                        <i class="fab fa-python"></i> Python Documentation
                     </a>
                 </li>
-                <li>
-                    <a class="doc-btn doc-btn--java" href="https://docs.oracle.com/en/java/" target="_blank" rel="noopener">
-                        <span class="doc-ribbon" aria-hidden="true"></span>
-                        <span class="doc-label"><span class="doc-badge">☕</span>Java Docs</span>
+                <li class="doc-nav-item">
+                    <a class="doc-java" href="https://docs.oracle.com/en/java/" target="_blank" rel="noopener">
+                        <i class="fab fa-java"></i> Java Documentation
                     </a>
                 </li>
-                <li>
-                    <a class="doc-btn doc-btn--js" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener">
-                        <span class="doc-ribbon" aria-hidden="true"></span>
-                        <span class="doc-label"><span class="doc-badge">JS</span>JS Docs</span>
+                <li class="doc-nav-item">
+                    <a class="doc-js" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener">
+                        <i class="fab fa-js"></i> JavaScript Documentation
                     </a>
                 </li>
-                <li>
-                    <a class="doc-btn doc-btn--cpp" href="https://en.cppreference.com/w/" target="_blank" rel="noopener">
-                        <span class="doc-ribbon" aria-hidden="true"></span>
-                        <span class="doc-label"><span class="doc-badge">C++</span>C++ Docs</span>
+                <li class="doc-nav-item">
+                    <a class="doc-cpp" href="https://en.cppreference.com/w/" target="_blank" rel="noopener">
+                        <i class="fas fa-code"></i> C++ Documentation
                     </a>
                 </li>
-                <li>
-                    <a class="doc-btn doc-btn--rust" href="https://doc.rust-lang.org/" target="_blank" rel="noopener">
-                        <span class="doc-ribbon" aria-hidden="true"></span>
-                        <span class="doc-label"><span class="doc-badge">Rs</span>Rust Docs</span>
+                <li class="doc-nav-item">
+                    <a class="doc-rust" href="https://doc.rust-lang.org/" target="_blank" rel="noopener">
+                        <i class="fas fa-cog"></i> Rust Documentation
                     </a>
                 </li>
-                <li>
-                    <a class="doc-btn doc-btn--sql" href="https://www.postgresql.org/docs/" target="_blank" rel="noopener">
-                        <span class="doc-ribbon" aria-hidden="true"></span>
-                        <span class="doc-label"><span class="doc-badge">DB</span>SQL Docs</span>
+                <li class="doc-nav-item">
+                    <a class="doc-sql" href="https://www.postgresql.org/docs/" target="_blank" rel="noopener">
+                        <i class="fas fa-database"></i> SQL Documentation
                     </a>
                 </li>
             </ul>
-
-            <div class="doc-content">
-                <p>Select a documentation button above — they wave, glow and jitter for instant attention. Each opens in a new tab.</p>
-            </div>
         </div>
     </div>
 </section>
@@ -561,6 +1337,12 @@ LIMIT 3;</code></pre></div>
         <div class="footer-col">
             <h3>About Edumart</h3>
             <p>Learn coding, practice problems, and get ready for real-world projects with Edumart courses.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
         </div>
         <div class="footer-col">
             <h3>Quick Links</h3>
@@ -568,25 +1350,183 @@ LIMIT 3;</code></pre></div>
                 <li><a href="#courses">Courses</a></li>
                 <li><a href="#syllabus">Syllabus</a></li>
                 <li><a href="#problems">Problems</a></li>
+                <li><a href="#playground">Playground</a></li>
                 <li><a href="#docs">Documentation</a></li>
             </ul>
         </div>
         <div class="footer-col">
-            <h3>Follow Us</h3>
-            <div class="social-links">
-                <a href="#">📘</a>
-                <a href="#">🐦</a>
-                <a href="#">📸</a>
-            </div>
+            <h3>Resources</h3>
+            <ul class="footer-links">
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="#">Help Center</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Contact Us</h3>
+            <ul class="footer-links">
+                <li><i class="fas fa-envelope"></i> support@edumart.com</li>
+                <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                <li><i class="fas fa-map-marker-alt"></i> San Francisco, CA</li>
+            </ul>
         </div>
     </div>
-    <div class="copyright">© 2025 Edumart. All rights reserved.</div>
+    <div class="copyright">© 2025 Edumart. All rights reserved. Made with <i class="fas fa-heart" style="color: var(--danger);"></i> for learners worldwide.</div>
 </footer>
 
-<!-- JS -->
+<!-- Fixed Live Support Chat (Right Side) -->
+<div class="live-support-chat" id="liveSupport">
+    <div class="support-chat-header" onclick="toggleSupport()">
+        <div class="support-chat-title">
+            <span class="support-status"></span>
+            Live Support
+        </div>
+        <button class="minimize-btn" id="minimizeBtn">
+            <i class="fas fa-minus"></i>
+        </button>
+    </div>
+    <div class="support-chat-messages" id="supportMessages">
+        <div class="chat-message support">
+            <div class="message-bubble">
+                Hi! 👋 Welcome to Edumart. How can I help you today?
+            </div>
+            <div class="message-time">Just now</div>
+        </div>
+        <div class="typing-indicator" id="typingIndicator">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+        </div>
+    </div>
+    <div class="support-chat-input">
+        <input type="text" id="supportInput" placeholder="Type your message..." onkeypress="handleSupportKeypress(event)">
+        <button onclick="sendSupportMessage()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Social Proof Notification -->
+<div class="social-proof" id="socialProof">
+    <div class="social-proof-avatar">JD</div>
+    <div class="social-proof-text">
+        <div class="social-proof-name">John Doe</div>
+        <div class="social-proof-action">Just enrolled in Python Mastery</div>
+    </div>
+</div>
+
+<!-- JavaScript -->
 <script>
+// Scroll Progress Bar
+window.addEventListener('scroll', () => {
+    const winScroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById('scrollProgress').style.width = scrolled + '%';
+});
+
+// Dark Mode Toggle
+const themeToggle = document.getElementById('themeToggle');
+const html = document.documentElement;
+let isDark = false;
+
+themeToggle.addEventListener('click', () => {
+    isDark = !isDark;
+    html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+});
+
+// Load saved theme
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'dark') {
+    isDark = true;
+    html.setAttribute('data-theme', 'dark');
+    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+}
+
+// Floating Particles
+const particlesContainer = document.getElementById('particles');
+for(let i = 0; i < 50; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 15 + 's';
+    particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+    particlesContainer.appendChild(particle);
+}
+
+// Animate Stats Counter
+function animateCounter(id, target, suffix = '') {
+    let current = 0;
+    const increment = target / 100;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        document.getElementById(id).textContent = Math.floor(current) + suffix;
+    }, 20);
+}
+
+// Observe stats section
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounter('studentsCount', 15000);
+            animateCounter('coursesCount', 6);
+            animateCounter('instructorsCount', 25);
+            animateCounter('completionRate', 94, '%');
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+const statsSection = document.querySelector('.live-stats');
+if (statsSection) {
+    statsObserver.observe(statsSection);
+}
+
+// Course Search
+const searchInput = document.getElementById('courseSearch');
+const courseCards = document.querySelectorAll('.course-card');
+
+searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    courseCards.forEach(card => {
+        const courseName = card.querySelector('h3').textContent.toLowerCase();
+        const language = card.querySelector('.language').textContent.toLowerCase();
+        if (courseName.includes(searchTerm) || language.includes(searchTerm)) {
+            card.parentElement.style.display = 'block';
+        } else {
+            card.parentElement.style.display = 'none';
+        }
+    });
+});
+
+// Testimonials Slider
+let currentTestimonial = 0;
+const testimonials = document.querySelectorAll('.testimonial');
+
+function showTestimonial(index) {
+    testimonials.forEach(t => t.classList.remove('active'));
+    testimonials[index].classList.add('active');
+}
+
+function nextTestimonial() {
+    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+    showTestimonial(currentTestimonial);
+}
+
+setInterval(nextTestimonial, 5000);
+
+// Tab Functionality
 const tabs = document.querySelectorAll('.tab-btn');
 const tabContents = document.querySelectorAll('.tab-content');
+
 tabs.forEach(tab => {
     tab.addEventListener('click', () => {
         tabs.forEach(t => t.classList.remove('active'));
@@ -599,13 +1539,189 @@ tabs.forEach(tab => {
     });
 });
 
+// Toggle Solution
 function toggleSolution(id){
     const sol = document.getElementById('solution'+id);
+    const btn = sol.previousElementSibling;
     sol.classList.toggle('show');
+    if(sol.classList.contains('show')) {
+        btn.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Solution';
+        Prism.highlightAllUnder(sol);
+    } else {
+        btn.innerHTML = '<i class="fas fa-code"></i> Show Solution';
+    }
 }
 
+// Code Playground
+function runCode() {
+    const code = document.getElementById('codeInput').value;
+    const output = document.getElementById('codeOutput');
+    const language = document.getElementById('playgroundLanguage').value;
+    
+    output.textContent = '';
+    
+    if (language === 'javascript') {
+        try {
+            const originalLog = console.log;
+            let logs = [];
+            console.log = function(...args) {
+                logs.push(args.join(' '));
+            };
+            
+            eval(code);
+            
+            console.log = originalLog;
+            output.textContent = logs.length > 0 ? logs.join('\n') : 'Code executed successfully!';
+            output.style.color = '#98c379';
+        } catch (error) {
+            output.textContent = 'Error: ' + error.message;
+            output.style.color = '#e06c75';
+        }
+    } else {
+        output.textContent = `${language} execution is simulated.\n\nIn a real environment, this would execute your ${language} code.\n\nFor now, try JavaScript to see live execution!`;
+        output.style.color = '#e5c07b';
+    }
+}
+
+// Progress Chart
+const ctx = document.getElementById('progressChart');
+if (ctx) {
+    const progressChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+            datasets: [{
+                label: 'Learning Progress',
+                data: [10, 25, 45, 60, 78, 94],
+                borderColor: '#4285f4',
+                backgroundColor: 'rgba(66, 133, 244, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Newsletter Subscribe
+function subscribeNewsletter(e) {
+    e.preventDefault();
+    const email = e.target.querySelector('input').value;
+    alert(`Thank you for subscribing with ${email}! Check your inbox for confirmation.`);
+    e.target.reset();
+}
+
+// Live Support Chat Functions
+function toggleSupport() {
+    const chat = document.getElementById('liveSupport');
+    const btn = document.getElementById('minimizeBtn');
+    chat.classList.toggle('minimized');
+    if(chat.classList.contains('minimized')) {
+        btn.innerHTML = '<i class="fas fa-plus"></i>';
+    } else {
+        btn.innerHTML = '<i class="fas fa-minus"></i>';
+    }
+}
+
+function handleSupportKeypress(e) {
+    if (e.key === 'Enter') {
+        sendSupportMessage();
+    }
+}
+
+function sendSupportMessage() {
+    const input = document.getElementById('supportInput');
+    const message = input.value.trim();
+    
+    if (message === '') return;
+    
+    const messagesContainer = document.getElementById('supportMessages');
+    const typingIndicator = document.getElementById('typingIndicator');
+    
+    // Add user message
+    const userMessage = document.createElement('div');
+    userMessage.className = 'chat-message user';
+    userMessage.innerHTML = `
+        <div class="message-bubble">${message}</div>
+        <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+    `;
+    messagesContainer.insertBefore(userMessage, typingIndicator);
+    
+    input.value = '';
+    
+    // Scroll to bottom
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    
+    // Show typing indicator
+    typingIndicator.classList.add('show');
+    
+    // Simulate support response
+    setTimeout(() => {
+        typingIndicator.classList.remove('show');
+        
+        const supportMessage = document.createElement('div');
+        supportMessage.className = 'chat-message support';
+        supportMessage.innerHTML = `
+            <div class="message-bubble">Thank you for your message! A support agent will respond shortly. In the meantime, check out our <a href="#docs" style="color: white; text-decoration: underline;">documentation</a>.</div>
+            <div class="message-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+        `;
+        messagesContainer.insertBefore(supportMessage, typingIndicator);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, 2000);
+}
+
+// Social Proof Notifications
+const socialProofData = [
+    { name: 'John Doe', initials: 'JD', action: 'Just enrolled in Python Mastery' },
+    { name: 'Sarah Smith', initials: 'SS', action: 'Completed JavaScript course' },
+    { name: 'Mike Johnson', initials: 'MJ', action: 'Started learning Rust' },
+    { name: 'Emily Chen', initials: 'EC', action: 'Just enrolled in SQL course' },
+    { name: 'David Lee', initials: 'DL', action: 'Completed C++ fundamentals' }
+];
+
+function showSocialProof() {
+    const randomProof = socialProofData[Math.floor(Math.random() * socialProofData.length)];
+    const proofEl = document.getElementById('socialProof');
+    
+    proofEl.querySelector('.social-proof-avatar').textContent = randomProof.initials;
+    proofEl.querySelector('.social-proof-name').textContent = randomProof.name;
+    proofEl.querySelector('.social-proof-action').textContent = randomProof.action;
+    
+    proofEl.classList.add('show');
+    
+    setTimeout(() => {
+        proofEl.classList.remove('show');
+    }, 5000);
+}
+
+// Show social proof periodically
+setInterval(showSocialProof, 10000);
+setTimeout(showSocialProof, 3000); // First one after 3 seconds
+
+// Fade-in Animation on Scroll
 const faders = document.querySelectorAll('.fade-in');
 const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
+
 const appearOnScroll = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if(entry.isIntersecting){
@@ -614,7 +1730,13 @@ const appearOnScroll = new IntersectionObserver((entries, observer) => {
         }
     });
 }, appearOptions);
+
 faders.forEach(fader => appearOnScroll.observe(fader));
+
+// Prism Syntax Highlighting
+document.addEventListener('DOMContentLoaded', () => {
+    Prism.highlightAll();
+});
 </script>
 
 </body>
