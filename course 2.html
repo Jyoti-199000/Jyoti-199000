@@ -782,7 +782,7 @@
     <div class="container">
         <nav>
             <div class="logo"><span class="logo-icon">📚</span>Edumart</div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navLinks" role="navigation" aria-label="Main Navigation">
                 <li><a href="#courses">Courses</a></li>
                 <li><a href="#syllabus">Syllabus</a></li>
                 <li><a href="#problems">Problems</a></li>
@@ -791,10 +791,84 @@
                 <li><button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button></li>
                 <li><a href="auth.html" class="btn btn-secondary">Login</a></li>
             </ul>
-            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-expanded="false" aria-controls="navLinks"><i class="fas fa-bars"></i></button>
         </nav>
     </div>
 </header>
+
+<!-- Mobile menu styles and script (keeps logic local to header area) -->
+<style>
+    /* Mobile nav open state */
+    .nav-links.open {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: var(--bg-card, white);
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        z-index: 2000;
+    }
+    .nav-links.open li {
+        margin: 0;
+        margin-bottom: 0.75rem;
+    }
+    .nav-links.open li:last-child {
+        margin-bottom: 0;
+    }
+    /* Ensure desktop layout unaffected */
+    @media (min-width: 769px) {
+        .nav-links.open {
+            display: flex !important;
+            position: static;
+            flex-direction: row;
+            background: none;
+            padding: 0;
+            box-shadow: none;
+        }
+        .nav-links.open li {
+            margin-left: 2rem;
+            margin-bottom: 0;
+        }
+    }
+</style>
+
+<script>
+    (function() {
+        const btn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('navLinks');
+        if (!btn || !nav) return;
+
+        // Toggle mobile nav visibility and icon/aria state
+        btn.addEventListener('click', () => {
+            const opened = nav.classList.toggle('open');
+            btn.setAttribute('aria-expanded', opened ? 'true' : 'false');
+            btn.innerHTML = opened ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile nav when a nav link is clicked (improves UX)
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (nav.classList.contains('open')) {
+                    nav.classList.remove('open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    btn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+
+        // Ensure nav is reset on resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && nav.classList.contains('open')) {
+                nav.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+    })();
+</script>
 
 <!-- Hero Section -->
 <section class="hero fade-in" style="background: none; position: relative; height: 80vh; color: white; overflow: hidden;">
